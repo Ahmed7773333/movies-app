@@ -9,11 +9,11 @@ class CategoryModel {
   static List<CategoryModel> getCategories() {
     return [
       CategoryModel("Action", actionCat),
-      CategoryModel("Crime", actionCat),
-      CategoryModel("Drama", actionCat),
-      CategoryModel("Comedy", actionCat),
-      CategoryModel("Horror", actionCat),
-      CategoryModel("Sci-Fi", actionCat),
+      CategoryModel("Crime", crimeCat),
+      CategoryModel("Drama", dramaCat),
+      CategoryModel("Comedy", comedyCat),
+      CategoryModel("Horror", horrorCat),
+      CategoryModel("Sci-Fi", sciFiCat2),
     ];
   }
 }

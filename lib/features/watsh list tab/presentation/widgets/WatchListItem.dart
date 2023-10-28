@@ -17,14 +17,19 @@ class WatchListItem extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(
-                  actionCat,
-                  fit: BoxFit.fill,
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  child: Image.asset(
+                    actionCat,
+                    fit: BoxFit.fill,
+                  ),
                 ),
-                Image.asset(booked)
+                ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    child: Image.asset(booked))
               ],
             ),
-            HorizontalSpace(5),
+            const HorizontalSpace(5),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -34,12 +39,12 @@ class WatchListItem extends StatelessWidget {
                     "Alita Battle Angel",
                     style: mediumText,
                   ),
-                  VerticalSpace(5),
+                  const VerticalSpace(5),
                   Text(
                     "2019",
                     style: smallText2,
                   ),
-                  VerticalSpace(5),
+                  const VerticalSpace(5),
                   Text("Rosa Salazar, Christoph Waltz",
                       style: smallText2, overflow: TextOverflow.ellipsis),
                 ],
@@ -47,14 +52,14 @@ class WatchListItem extends StatelessWidget {
             )
           ],
         ),
-        VerticalSpace(15),
+        const VerticalSpace(15),
         Divider(
           color: Colors.white,
           indent: 20.5.w,
           endIndent: 33.5.w,
           height: 1,
         ),
-        VerticalSpace(25),
+        const VerticalSpace(25),
       ],
     );
   }
