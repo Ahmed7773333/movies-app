@@ -1,1 +1,1 @@
-String API_KEY_HATEM= "fbd23ec55c10dc8d023dcc189a1108c5";
+const String apiKeyHatem = "fbd23ec55c10dc8d023dcc189a1108c5";
