@@ -10,3 +10,4 @@ String bigTemp = 'assets/bigTemp.png';
 String star = 'assets/star.png';
 String play = 'assets/play.png';
 String arrow = 'assets/arrow.png';
+String actionCat= 'assets/action-movie-cat.png';
