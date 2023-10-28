@@ -3,6 +3,8 @@ import 'package:movies_app/core/utils/app_colors.dart';
 
 ThemeData mode = ThemeData(
   scaffoldBackgroundColor: blackColor,
+  appBarTheme: const AppBarTheme(
+      centerTitle: true, elevation: 0, color: Colors.transparent),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     showSelectedLabels: true,
     showUnselectedLabels: true,

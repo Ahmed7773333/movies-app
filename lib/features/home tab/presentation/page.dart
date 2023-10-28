@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/components/list_view.dart';
+import 'package:movies_app/core/utils/components/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/first_listview_item.dart';
@@ -96,7 +97,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
               const VerticalSpace(30),
               HorizontalListView(
-                hight: 246,
+                hight: 250,
                 list: secondList,
                 text: 'Recomended',
               ),
@@ -105,31 +106,7 @@ class _HomeTabState extends State<HomeTab> {
           Positioned(
             left: 21.w,
             top: 90.h,
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: 199.h,
-                  width: 129.w,
-                  child: Image.asset(
-                    bigTemp,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Positioned(
-                    left: 0,
-                    top: 0,
-                    child: InkWell(
-                      onTap: () {
-                        isBooked = isBooked == false ? true : false;
-                        setState(() {});
-                      },
-                      child: SizedBox(
-                          width: 27.w,
-                          height: 36.h,
-                          child: Image.asset(isBooked ? booked : notBooked)),
-                    ))
-              ],
-            ),
+            child: const MovieItem(height: 199, width: 129),
           ),
         ],
       ),

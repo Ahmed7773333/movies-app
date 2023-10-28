@@ -28,7 +28,7 @@ class _FirstListViewItemState extends State<FirstListViewItem> {
               height: 127.74.h,
               child: Image.asset(widget.image),
             ),
-            openedWidget: const MovieDetailsScreen()),
+            openedWidget: MovieDetailsScreen()),
         Positioned(
             left: 0,
             top: 0,

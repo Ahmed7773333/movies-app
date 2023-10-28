@@ -9,3 +9,4 @@ String empty = 'assets/empty.png';
 String bigTemp = 'assets/bigTemp.png';
 String star = 'assets/star.png';
 String play = 'assets/play.png';
+String arrow = 'assets/arrow.png';
