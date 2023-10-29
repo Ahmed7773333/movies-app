@@ -7,10 +7,12 @@ import 'package:movies_app/core/utils/assets.dart';
 class MovieItem extends StatefulWidget {
   final double height;
   final double width;
+  final String image;
   const MovieItem({
     Key? key,
     required this.height,
     required this.width,
+    required this.image
   }) : super(key: key);
 
   @override
@@ -27,8 +29,8 @@ class _MovieItemState extends State<MovieItem> {
         SizedBox(
           height: widget.height.h,
           width: widget.width.w,
-          child: Image.asset(
-            bigTemp,
+          child: Image.network(
+            widget.image,
             fit: BoxFit.fill,
           ),
         ),

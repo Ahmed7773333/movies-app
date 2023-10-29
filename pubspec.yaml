@@ -49,6 +49,7 @@ dependencies:
   hive: ^2.2.3
   google_fonts: ^6.1.0
   flutter_screenutil: ^5.9.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

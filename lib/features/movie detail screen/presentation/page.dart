@@ -88,7 +88,7 @@ class MovieDetailsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const MovieItem(height: 199, width: 129),
+              // MovieItem(height: 199, width: 129,image: bigTemp),
               const HorizontalSpace(11),
               Expanded(
                 child: Column(

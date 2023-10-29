@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/api/api_functions/api_manager_functions.dart';
@@ -5,6 +6,7 @@ import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/components/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/carousel_slider_item.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/new_releases_listview.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/recomended_listview.dart';
 import '../../../core/utils/assets.dart';
@@ -28,44 +30,17 @@ class _HomeTabState extends State<HomeTab> {
         children: [
           Column(
             children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    height: 217.h,
-                    width: double.infinity,
-                    child: Image.asset(
-                      bigTemp,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                      left: 0,
-                      top: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: ImageIcon(
-                        AssetImage(play),
-                        size: 60.sp,
-                        color: Colors.white,
-                      ))
-                ],
-              ),
-              const VerticalSpace(14),
-              Padding(
-                padding: EdgeInsets.only(left: 164.w),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                          text: 'Dora and the lost city of gold\n',
-                          style: tmpText),
-                      TextSpan(
-                        text: '2019 PG-13 2h 7m',
-                        style: smallText,
-                      ),
-                    ],
-                  ),
-                ),
+              FutureBuilder(future: ApiManager.getMovies(index: 1),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(child: Text("Something went wrong!"));
+                  }
+                  var resultsList = snapshot.data?.results ?? [];
+                  return CarouselSliderItem(movie: resultsList,);
+                },
               ),
               const VerticalSpace(43),
               Padding(
@@ -98,11 +73,6 @@ class _HomeTabState extends State<HomeTab> {
               ),
               const VerticalSpace(10),
             ],
-          ),
-          Positioned(
-            left: 21.w,
-            top: 90.h,
-            child: const MovieItem(height: 199, width: 129),
           ),
         ],
       ),
