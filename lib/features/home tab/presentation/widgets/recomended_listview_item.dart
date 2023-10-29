@@ -7,8 +7,8 @@ import 'package:movies_app/core/utils/styles.dart';
 import '../../../../core/utils/components/space.dart';
 
 class RecommendedListViewItem extends StatefulWidget {
-  Results movie;
-  RecommendedListViewItem({Key? key,required this.movie})
+  final Results movie;
+  const RecommendedListViewItem({Key? key,required this.movie})
       : super(key: key);
 
   @override
@@ -75,9 +75,9 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
                       const Spacer(),
                     ],
                   ),
-                  VerticalSpace(1),
+                  const VerticalSpace(1),
                   Expanded(child: Text(widget.movie.title??"", style: smallText3,maxLines: 2,overflow: TextOverflow.ellipsis,)),
-                  VerticalSpace(1),
+                  const VerticalSpace(1),
                   Text(widget.movie.releaseDate?.substring(0,4)??"".substring(0,4), style: verySmallText),
                   // RichText(
                   //   text: TextSpan(

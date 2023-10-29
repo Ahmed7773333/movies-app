@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/recomended_listview_item.dart';
 import '../../../../core/api/api_functions/api_manager_functions.dart';
 import '../../../../core/api/models/movie_item.dart';
@@ -9,9 +8,9 @@ import '../../../../core/utils/components/space.dart';
 import '../../../../core/utils/styles.dart';
 
 class RecommendedListItems extends StatefulWidget {
-  List<Results> resultsList;
+  final List<Results> resultsList;
 
-  RecommendedListItems(this.resultsList, {super.key});
+  const RecommendedListItems(this.resultsList, {super.key});
 
   @override
   State<RecommendedListItems> createState() => _RecommendedListState();

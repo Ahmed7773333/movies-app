@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/api/api_functions/api_manager_functions.dart';
 import 'package:movies_app/core/api/models/movie_item.dart';
-import 'package:movies_app/core/utils/components/list_view.dart';
 import 'package:movies_app/core/utils/components/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
-import 'package:movies_app/features/home%20tab/presentation/widgets/first_listview_item.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/new_releases_listview.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/recomended_listview.dart';
-
 import '../../../core/utils/assets.dart';
-import 'widgets/recomended_listview_item.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -22,17 +18,6 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   bool isBooked = false;
-  // List<NewReleasesListViewItem> firstList = [
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp),
-  //   NewReleasesListViewItem(image: bigTemp)
-  // ];
   Results movie= Results(title: "DeadPool",voteAverage: 7.7,releaseDate: "2019-5-12");
 
   @override
