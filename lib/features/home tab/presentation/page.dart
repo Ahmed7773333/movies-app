@@ -1,15 +1,11 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/api/api_functions/api_manager_functions.dart';
 import 'package:movies_app/core/api/models/movie_item.dart';
-import 'package:movies_app/core/utils/components/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
-import 'package:movies_app/core/utils/styles.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/carousel_slider_item.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/new_releases_listview.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/recomended_listview.dart';
-import '../../../core/utils/assets.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
