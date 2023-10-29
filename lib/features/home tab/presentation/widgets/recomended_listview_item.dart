@@ -6,17 +6,16 @@ import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/styles.dart';
 import '../../../../core/utils/components/space.dart';
 
-class SecondListViewItem extends StatefulWidget {
-  final String image;
+class RecommendedListViewItem extends StatefulWidget {
   Results movie;
-  SecondListViewItem({Key? key, required this.image, required this.movie})
+  RecommendedListViewItem({Key? key,required this.movie})
       : super(key: key);
 
   @override
-  State<SecondListViewItem> createState() => _SecondListViewItemState();
+  State<RecommendedListViewItem> createState() => _RecommendedListViewItemState();
 }
 
-class _SecondListViewItemState extends State<SecondListViewItem> {
+class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
   bool isBooked = false;
 
   @override
@@ -26,20 +25,20 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
       shadowColor: navigationBarShadowColor,
       color: const Color(0xFF343534),
       child: SizedBox(
-        height: 200.h, //184
+        height: 184.h, //184
         width: 97.w,
         child: Column(
           children: [
             Stack(
               children: [
                 SizedBox(
-                  width: 96.87.w,
+                  width: double.infinity,
                   height: 127.74.h,
-                  child: Image.asset(widget.image),
+                  child: Image.network("https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}",fit: BoxFit.fill,),
                 ),
                 Positioned(
-                  left: 0,
-                  top: 0,
+                  left: -1,
+                  top: -1,
                   child: InkWell(
                     onTap: () {
                       isBooked = isBooked == false ? true : false;
@@ -53,7 +52,6 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                 ),
               ],
             ),
-            const VerticalSpace(7),
             SizedBox(
               height: 58.h,
               width: 96.87,
@@ -61,6 +59,7 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                 padding: EdgeInsets.all(5.sp),
                 child: Column(children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const HorizontalSpace(6),
                       Image.asset(
@@ -68,26 +67,30 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                         width: 10.w,
                         height: 9.h,
                       ),
+                      const HorizontalSpace(5),
                       Text(
                         widget.movie.voteAverage.toString(),
-                        style: smallText,
+                        style: smallText3,
                       ),
                       const Spacer(),
                     ],
                   ),
-                  const VerticalSpace(1),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(text: widget.movie.title, style: smallText),
-                        TextSpan(
-                          text:
-                              "   ${widget.movie.releaseDate?.substring(0, 4)}",
-                          style: smallText.copyWith(fontSize: 8.sp),
-                        ),
-                      ],
-                    ),
-                  ),
+                  VerticalSpace(1),
+                  Expanded(child: Text(widget.movie.title??"", style: smallText3,maxLines: 2,overflow: TextOverflow.ellipsis,)),
+                  VerticalSpace(1),
+                  Text(widget.movie.releaseDate?.substring(0,4)??"".substring(0,4), style: verySmallText),
+                  // RichText(
+                  //   text: TextSpan(
+                  //     children: [
+                  //       TextSpan(text: widget.movie.title, style: smallText3,),
+                  //       TextSpan(
+                  //         text:
+                  //             "\n${widget.movie.releaseDate?.substring(0, 4)}",
+                  //         style: verySmallText,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ]),
               ),
             )

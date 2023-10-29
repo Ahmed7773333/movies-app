@@ -9,9 +9,10 @@ import 'package:movies_app/features/movie%20detail%20screen/presentation/widgets
 
 import '../../../core/utils/assets.dart';
 import '../../../core/utils/styles.dart';
-import '../../home tab/presentation/widgets/second_listview_item.dart';
+import '../../home tab/presentation/widgets/recomended_listview_item.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
+
   MovieDetailsScreen({super.key});
   // List<SecondListViewItem> secondList = [
   //   SecondListViewItem(image: bigTemp),

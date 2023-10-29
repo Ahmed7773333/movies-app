@@ -4,19 +4,26 @@ import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/constants.dart';
 
 class ApiManager {
-  static Future<PopularMoviesItems> getMovies({bool isPopular = true}) async {
+  static Future<PopularMoviesItems> getMovies({int index=1}) async {
     Uri url = Uri.https(baseUrl, "/3/movie/popular", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",
       "api_key": apiKeyHatem
     });
-    Uri url2 = Uri.https(baseUrl, "/3/movie/top_rated", {
+    Uri url2 = Uri.https(baseUrl, "/3/movie/upcoming", {
       "Authorization": authorizationAccessToken,
       "language": "en-US",
       "api_key": apiKeyHatem,
       "accept": "application/json"
     });
-    http.Response response = await http.get(isPopular ? url : url2);
+
+    Uri url3 = Uri.https(baseUrl, "/3/movie/top_rated", {
+      "Authorization": authorizationAccessToken,
+      "language": "en-US",
+      "api_key": apiKeyHatem,
+      "accept": "application/json"
+    });
+    http.Response response = await http.get(index==1?url:index==2?url2:url3);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
     return data;

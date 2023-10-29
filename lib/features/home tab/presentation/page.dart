@@ -7,10 +7,11 @@ import 'package:movies_app/core/utils/components/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/first_listview_item.dart';
-import 'package:movies_app/features/home%20tab/presentation/widgets/second_listview.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/new_releases_listview.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/recomended_listview.dart';
 
 import '../../../core/utils/assets.dart';
-import 'widgets/second_listview_item.dart';
+import 'widgets/recomended_listview_item.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -21,31 +22,17 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   bool isBooked = false;
-  List<FirstListViewItem> firstList = [
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp),
-    FirstListViewItem(image: bigTemp)
-  ];
-  // List<SecondListViewItem> secondList = [
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
-  //   SecondListViewItem(image: bigTemp),
+  // List<NewReleasesListViewItem> firstList = [
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp),
+  //   NewReleasesListViewItem(image: bigTemp)
   // ];
-
   Results movie= Results(title: "DeadPool",voteAverage: 7.7,releaseDate: "2019-5-12");
 
   @override
@@ -96,14 +83,9 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
               const VerticalSpace(43),
-              HorizontalListView(
-                hight: 187,
-                list: firstList,
-                text: 'New Release',
-              ),
-              const VerticalSpace(30),
-              SecondListViewItem(image: bigTemp, movie: movie),
-              FutureBuilder(future: ApiManager.getMovies(),
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.h),
+                child: FutureBuilder(future: ApiManager.getMovies(index: 2),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -112,14 +94,24 @@ class _HomeTabState extends State<HomeTab> {
                       return const Center(child: Text("Something went wrong!"));
                     }
                     var resultsList = snapshot.data?.results ?? [];
-                    return Expanded(child: SecondListItems(resultsList,));
+                    return NewReleasesListView(resultsList: resultsList,);
+                  },
+                ),
+              ),
+              const VerticalSpace(10),
+              FutureBuilder(future: ApiManager.getMovies(index: 3),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return const Center(child: Text("Something went wrong!"));
+                    }
+                    var resultsList = snapshot.data?.results ?? [];
+                    return Expanded(child: RecommendedListItems(resultsList,));
                   },
               ),
-              // HorizontalListView(
-              //   hight: 250,
-              //   list: secondList,
-              //   text: 'Recomended',
-              // ),
+              const VerticalSpace(10),
             ],
           ),
           Positioned(

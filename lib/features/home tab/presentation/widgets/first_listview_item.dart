@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/components/open_container.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/page.dart';
 
-class FirstListViewItem extends StatefulWidget {
-  final String image;
-  const FirstListViewItem({
+class NewReleasesListViewItem extends StatefulWidget {
+  Results movie;
+  NewReleasesListViewItem({
     Key? key,
-    required this.image,
+    required this.movie
   }) : super(key: key);
 
   @override
-  State<FirstListViewItem> createState() => _FirstListViewItemState();
+  State<NewReleasesListViewItem> createState() => _NewReleasesListViewItemState();
 }
 
-class _FirstListViewItemState extends State<FirstListViewItem> {
+class _NewReleasesListViewItemState extends State<NewReleasesListViewItem> {
   bool isBooked = false;
 
   @override
@@ -26,7 +27,7 @@ class _FirstListViewItemState extends State<FirstListViewItem> {
             closedWidget: SizedBox(
               width: 96.87.w,
               height: 127.74.h,
-              child: Image.asset(widget.image),
+              child: Image.network("https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}"),
             ),
             openedWidget: MovieDetailsScreen()),
         Positioned(
