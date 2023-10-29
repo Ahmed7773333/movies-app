@@ -9,11 +9,8 @@ import '../../../../core/utils/components/space.dart';
 class SecondListViewItem extends StatefulWidget {
   final String image;
   Results movie;
-  SecondListViewItem({
-    Key? key,
-    required this.image,
-    required this.movie
-  }) : super(key: key);
+  SecondListViewItem({Key? key, required this.image, required this.movie})
+      : super(key: key);
 
   @override
   State<SecondListViewItem> createState() => _SecondListViewItemState();
@@ -84,7 +81,8 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                       children: [
                         TextSpan(text: widget.movie.title, style: smallText),
                         TextSpan(
-                          text: "   ${widget.movie.releaseDate?.substring(0,4)}",
+                          text:
+                              "   ${widget.movie.releaseDate?.substring(0, 4)}",
                           style: smallText.copyWith(fontSize: 8.sp),
                         ),
                       ],
