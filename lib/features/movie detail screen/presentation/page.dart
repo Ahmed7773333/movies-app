@@ -1,19 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/core/utils/components/list_view.dart';
-import 'package:movies_app/core/utils/components/movie_item.dart';
+
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/widgets/category_item.dart';
 
+import '../../../core/api/models/movie_item.dart';
 import '../../../core/utils/assets.dart';
 import '../../../core/utils/styles.dart';
-import '../../home tab/presentation/widgets/recomended_listview_item.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-
-  MovieDetailsScreen({super.key});
+  final Results movie;
+  const MovieDetailsScreen({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
   // List<SecondListViewItem> secondList = [
   //   SecondListViewItem(image: bigTemp),
   //   SecondListViewItem(image: bigTemp),
@@ -32,7 +35,7 @@ class MovieDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Dora and the lost city of gold',
+          movie.title ?? '',
           style: tmpText.copyWith(
             fontSize: 20,
           ),
@@ -53,8 +56,8 @@ class MovieDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 217.h,
                 width: double.infinity,
-                child: Image.asset(
-                  bigTemp,
+                child: Image.network(
+                  "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -75,10 +78,9 @@ class MovieDetailsScreen extends StatelessWidget {
           RichText(
             text: TextSpan(
               children: [
+                TextSpan(text: '${movie.title}\n', style: tmpText),
                 TextSpan(
-                    text: 'Dora and the lost city of gold\n', style: tmpText),
-                TextSpan(
-                  text: '2019 PG-13 2h 7m',
+                  text: movie.releaseDate,
                   style: smallText,
                 ),
               ],
@@ -110,7 +112,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     ),
                     const VerticalSpace(13),
                     Text(
-                      'Having spent most of her life\nexploring the jungle, nothing could\nprepare Dora for her most dangerous\nadventure yet — high school. ',
+                      movie.overview ?? '',
                       style: smallText.copyWith(
                         color: const Color(0xFFCBCBCB),
                         fontSize: 13,
@@ -127,7 +129,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           height: 20.h,
                         ),
                         Text(
-                          '7.7',
+                          movie.voteAverage.toString(),
                           style: smallText.copyWith(fontSize: 16),
                         ),
                         const Spacer(),

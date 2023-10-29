@@ -8,11 +8,12 @@ import '../../../../core/utils/components/space.dart';
 
 class RecommendedListViewItem extends StatefulWidget {
   final Results movie;
-  const RecommendedListViewItem({Key? key,required this.movie})
+  const RecommendedListViewItem({Key? key, required this.movie})
       : super(key: key);
 
   @override
-  State<RecommendedListViewItem> createState() => _RecommendedListViewItemState();
+  State<RecommendedListViewItem> createState() =>
+      _RecommendedListViewItemState();
 }
 
 class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
@@ -25,7 +26,7 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
       shadowColor: navigationBarShadowColor,
       color: const Color(0xFF343534),
       child: SizedBox(
-        height: 184.h, //184
+        height: 190.h, //184
         width: 97.w,
         child: Column(
           children: [
@@ -33,8 +34,11 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 127.74.h,
-                  child: Image.network("https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}",fit: BoxFit.fill,),
+                  height: 122.74.h,
+                  child: Image.network(
+                    "https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}",
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Positioned(
                   left: -1,
@@ -76,9 +80,17 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
                     ],
                   ),
                   const VerticalSpace(1),
-                  Expanded(child: Text(widget.movie.title??"", style: smallText3,maxLines: 2,overflow: TextOverflow.ellipsis,)),
+                  Expanded(
+                      child: Text(
+                    widget.movie.title ?? "",
+                    style: smallText3,
+                    maxLines: 2,
+                  )),
                   const VerticalSpace(1),
-                  Text(widget.movie.releaseDate?.substring(0,4)??"".substring(0,4), style: verySmallText),
+                  Text(
+                      widget.movie.releaseDate?.substring(0, 4) ??
+                          "".substring(0, 4),
+                      style: verySmallText),
                   // RichText(
                   //   text: TextSpan(
                   //     children: [
