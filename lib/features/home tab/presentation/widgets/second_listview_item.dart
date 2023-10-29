@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/styles.dart';
-
 import '../../../../core/utils/components/space.dart';
 
 class SecondListViewItem extends StatefulWidget {
   final String image;
-  const SecondListViewItem({
+  Results movie;
+  SecondListViewItem({
     Key? key,
     required this.image,
+    required this.movie
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
       shadowColor: navigationBarShadowColor,
       color: const Color(0xFF343534),
       child: SizedBox(
-        height: 184.h,
+        height: 200.h, //184
         width: 97.w,
         child: Column(
           children: [
@@ -70,7 +72,7 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                         height: 9.h,
                       ),
                       Text(
-                        '7.7',
+                        widget.movie.voteAverage.toString(),
                         style: smallText,
                       ),
                       const Spacer(),
@@ -80,9 +82,9 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                   RichText(
                     text: TextSpan(
                       children: [
-                        TextSpan(text: 'Deadpool 2\n', style: smallText),
+                        TextSpan(text: widget.movie.title, style: smallText),
                         TextSpan(
-                          text: '2018 R 1h 59m',
+                          text: "   ${widget.movie.releaseDate?.substring(0,4)}",
                           style: smallText.copyWith(fontSize: 8.sp),
                         ),
                       ],

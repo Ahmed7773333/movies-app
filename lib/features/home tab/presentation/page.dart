@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/api/api_functions/api_manager_functions.dart';
+import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/components/list_view.dart';
 import 'package:movies_app/core/utils/components/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/first_listview_item.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/second_listview.dart';
 
 import '../../../core/utils/assets.dart';
 import 'widgets/second_listview_item.dart';
@@ -29,19 +32,22 @@ class _HomeTabState extends State<HomeTab> {
     FirstListViewItem(image: bigTemp),
     FirstListViewItem(image: bigTemp)
   ];
-  List<SecondListViewItem> secondList = [
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-  ];
+  // List<SecondListViewItem> secondList = [
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  // ];
+
+  Results movie= Results(title: "DeadPool",voteAverage: 7.7,releaseDate: "2019-5-12");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,11 +102,24 @@ class _HomeTabState extends State<HomeTab> {
                 text: 'New Release',
               ),
               const VerticalSpace(30),
-              HorizontalListView(
-                hight: 250,
-                list: secondList,
-                text: 'Recomended',
+              SecondListViewItem(image: bigTemp, movie: movie),
+              FutureBuilder(future: ApiManager.getMovies(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return const Center(child: Text("Something went wrong!"));
+                    }
+                    var resultsList = snapshot.data?.results ?? [];
+                    return Expanded(child: SecondListItems(resultsList,));
+                  },
               ),
+              // HorizontalListView(
+              //   hight: 250,
+              //   list: secondList,
+              //   text: 'Recomended',
+              // ),
             ],
           ),
           Positioned(

@@ -10,7 +10,11 @@ class ApiManager {
     Uri url = Uri.https(baseUrl, "/3/movie/popular", {
       "Authorization": authorizationAccessToken,
     });
-    Response response=await http.get(url);
+    Uri url2 = Uri.https(baseUrl, "/3/movie/top_rated", {
+      "Authorization": authorizationAccessToken,
+      "language":"en-US",
+    });
+    http.Response response=await http.get(url);
     var jsonData=jsonDecode(response.body);
     PopularMoviesItems data= PopularMoviesItems.fromJson(jsonData);
     return data;

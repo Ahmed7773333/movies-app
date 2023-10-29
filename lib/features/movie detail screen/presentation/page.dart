@@ -13,19 +13,19 @@ import '../../home tab/presentation/widgets/second_listview_item.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   MovieDetailsScreen({super.key});
-  List<SecondListViewItem> secondList = [
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-  ];
+  // List<SecondListViewItem> secondList = [
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,10 +138,10 @@ class MovieDetailsScreen extends StatelessWidget {
             ],
           ),
           const VerticalSpace(18),
-          Expanded(
-            child: HorizontalListView(
-                hight: 246, list: secondList, text: 'More Like This'),
-          ),
+          // Expanded(
+          //   child: HorizontalListView(
+          //       hight: 246, list: secondList, text: 'More Like This'),
+          // ),
           const VerticalSpace(28.6),
         ],
       ),
