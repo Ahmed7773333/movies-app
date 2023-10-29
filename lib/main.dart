@@ -13,7 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
-
+  hive.Hive.registerAdapter(WatchListDBAdapter());
+  await Hive.openBox<WatchListDB>(WatchHelper.boxName);
   runApp(const MyApp());
 }
 
