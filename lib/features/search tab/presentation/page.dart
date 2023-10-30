@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/features/search%20tab/presentation/widgets/search_bar.dart';
 
 import '../../../core/api/api_functions/api_manager_functions.dart';
-import '../../../core/api/models/movie_item.dart';
 import 'widgets/search_list.dart';
 
 class SearchTab extends StatefulWidget {
@@ -20,17 +19,13 @@ class _SearchTabState extends State<SearchTab> {
     return SafeArea(
       child: Column(children: [
         CustomTextField(
-            controller: searchController,
-            hint: 'Search',
-            onPreClicked: () {
-              searchController.clear();
-              setState(() {});
-            },
-            func: () {
-              setState(() {});
-            }),
+          controller: searchController,
+          hint: 'Search',
+          onPreClicked: submit,
+          func: submit,
+        ),
         FutureBuilder(
-          future: ApiManager.getMovies(index: 4, q: 'god'),
+          future: ApiManager.getMovies(index: 4, q: q),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -63,19 +58,21 @@ class _SearchTabState extends State<SearchTab> {
             //     ),
             //   );
             // }
-            List<Results> resultsList = snapshot.data?.results
-                    ?.where((element) =>
-                        element.title?.contains(searchController.text) ?? false)
-                    .toList() ??
-                [];
-            return Expanded(
-              child: SearchListView(
-                resultsList,
-              ),
+            var resultsList = snapshot.data?.results ?? [];
+            return SearchListView(
+              resultsList,
             );
           },
         )
       ]),
     );
+  }
+
+  String q = '';
+  void submit() {
+    setState(() {
+      q = searchController.text;
+      debugPrint(q);
+    });
   }
 }
