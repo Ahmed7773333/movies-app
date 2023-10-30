@@ -4,7 +4,11 @@ import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/constants.dart';
 
 class ApiManager {
-  static Future<PopularMoviesItems> getMovies({int index=1}) async {
+  static Future<PopularMoviesItems> getMovies(
+      {int index = 1,
+      String q = '',
+      String year = '2023',
+      String language = 'en'}) async {
     Uri url = Uri.https(baseUrl, "/3/movie/popular", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",
@@ -23,7 +27,21 @@ class ApiManager {
       "api_key": apiKeyHatem,
       "accept": "application/json"
     });
-    http.Response response = await http.get(index==1?url:index==2?url2:url3);
+    Uri searchUrl = Uri.https(baseUrl, "/3/search/movie", {
+      "Authorization": authorizationAccessToken,
+      "language": language,
+      "api_key": apiKeyHatem,
+      "accept": "application/json",
+      "query": q,
+      "primary_release_year": year,
+    });
+    http.Response response = await http.get(index == 1
+        ? url
+        : index == 2
+            ? url2
+            : index == 3
+                ? url3
+                : searchUrl);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
     return data;

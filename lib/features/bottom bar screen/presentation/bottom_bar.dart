@@ -18,7 +18,7 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   final List<Widget> _pages = [
     const HomeTab(),
-    SearchTab(),
+    const SearchTab(),
     const BrowseTab(),
     const WatchListTab(),
   ];

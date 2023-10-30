@@ -1,14 +1,17 @@
-// ignore_for_file: file_names
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
 
-import '../../../../core/utils/assets.dart';
-
-class WatchListItem extends StatelessWidget {
-  const WatchListItem({super.key});
+class SearchListItem extends StatelessWidget {
+  final Results movie;
+  const SearchListItem({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +20,14 @@ class WatchListItem extends StatelessWidget {
       children: [
         Row(
           children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  child: Image.asset(
-                    actionCat,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    child: Image.asset(booked))
-              ],
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
+              child: Image.network(
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              ),
             ),
             const HorizontalSpace(5),
             Padding(
@@ -38,16 +36,16 @@ class WatchListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Alita Battle Angel",
+                    movie.title ?? '',
                     style: mediumText,
                   ),
                   const VerticalSpace(5),
                   Text(
-                    "2019",
+                    movie.releaseDate ?? '',
                     style: smallText2,
                   ),
                   const VerticalSpace(5),
-                  Text("Rosa Salazar, Christoph Waltz",
+                  Text(movie.originalTitle ?? '',
                       style: smallText2, overflow: TextOverflow.ellipsis),
                 ],
               ),

@@ -16,7 +16,8 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   bool isBooked = false;
-  Results movie= Results(title: "DeadPool",voteAverage: 7.7,releaseDate: "2019-5-12");
+  Results movie =
+      Results(title: "DeadPool", voteAverage: 7.7, releaseDate: "2019-5-12");
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,8 @@ class _HomeTabState extends State<HomeTab> {
         children: [
           Column(
             children: [
-              FutureBuilder(future: ApiManager.getMovies(index: 1),
+              FutureBuilder(
+                future: ApiManager.getMovies(index: 1),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -35,13 +37,16 @@ class _HomeTabState extends State<HomeTab> {
                     return const Center(child: Text("Something went wrong!"));
                   }
                   var resultsList = snapshot.data?.results ?? [];
-                  return CarouselSliderItem(movie: resultsList,);
+                  return CarouselSliderItem(
+                    movie: resultsList,
+                  );
                 },
               ),
               const VerticalSpace(43),
               Padding(
                 padding: EdgeInsets.only(bottom: 8.h),
-                child: FutureBuilder(future: ApiManager.getMovies(index: 2),
+                child: FutureBuilder(
+                  future: ApiManager.getMovies(index: 2),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -50,22 +55,29 @@ class _HomeTabState extends State<HomeTab> {
                       return const Center(child: Text("Something went wrong!"));
                     }
                     var resultsList = snapshot.data?.results ?? [];
-                    return NewReleasesListView(resultsList: resultsList,);
+                    return NewReleasesListView(
+                      resultsList: resultsList,
+                    );
                   },
                 ),
               ),
               const VerticalSpace(10),
-              FutureBuilder(future: ApiManager.getMovies(index: 3),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return const Center(child: Text("Something went wrong!"));
-                    }
-                    var resultsList = snapshot.data?.results ?? [];
-                    return Expanded(child: RecommendedListItems(resultsList,));
-                  },
+              FutureBuilder(
+                future: ApiManager.getMovies(index: 3),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    debugPrint('${snapshot.error}');
+                    return const Center(child: Text("Something went wrong!"));
+                  }
+                  var resultsList = snapshot.data?.results ?? [];
+                  return Expanded(
+                      child: RecommendedListItems(
+                    resultsList,
+                  ));
+                },
               ),
               const VerticalSpace(10),
             ],
