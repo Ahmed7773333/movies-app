@@ -90,7 +90,7 @@ class _SimilarListItemState extends State<SimilarListItem> {
                           )),
                       const VerticalSpace(1),
                       Text(
-                          widget.movie.releaseDate?.substring(0, 4) ??
+                          widget.movie.releaseDate ?? //substring here, causes error in some movies
                               "".substring(0, 4),
                           style: verySmallText),
                       // RichText(

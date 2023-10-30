@@ -38,18 +38,13 @@ class SearchListItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        movie.title ?? '',
-                        style: mediumText,
-                      ),
+                      RichText(text: TextSpan(text: movie.title??"")),
                       const VerticalSpace(5),
                       Text(
                         movie.releaseDate ?? '',
                         style: smallText2,
                       ),
-                      const VerticalSpace(5),
-                      Text(movie.originalTitle ?? '',
-                          style: smallText2, overflow: TextOverflow.ellipsis),
+                      const VerticalSpace(5)
                     ],
                   ),
                 )

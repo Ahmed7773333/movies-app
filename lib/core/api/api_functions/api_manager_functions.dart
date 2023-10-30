@@ -7,7 +7,6 @@ class ApiManager {
   static Future<PopularMoviesItems> getMovies(
       {int index = 1,
       String q = '',
-      String year = '2023',
       String language = 'en'}) async {
     Uri url = Uri.https(baseUrl, "/3/movie/popular", {
       "Authorization": authorizationAccessToken,
@@ -33,7 +32,6 @@ class ApiManager {
       "api_key": apiKeyHatem,
       "accept": "application/json",
       "query": q,
-      "primary_release_year": year,
     });
     http.Response response = await http.get(index == 1
         ? url

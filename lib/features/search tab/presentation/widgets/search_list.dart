@@ -19,7 +19,10 @@ class _RecommendedListState extends State<SearchListView> {
     return Expanded(
         child: ListView.builder(
       itemBuilder: (context, index) {
-        return SearchListItem(movie: widget.resultsList[index]);
+        return Padding(
+          padding: const EdgeInsets.only(left: 10,top: 12),
+          child: SearchListItem(movie: widget.resultsList[index]),
+        );
       },
       itemCount: widget.resultsList.length,
     ));
