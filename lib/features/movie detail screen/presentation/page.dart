@@ -55,7 +55,9 @@ class MovieDetailsScreen extends StatelessWidget {
                 height: 217.h,
                 width: double.infinity,
                 child: Image.network(
+
                   movie.backdropPath!=null?"https://image.tmdb.org/t/p/w500/${movie.backdropPath}":"https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+
                   fit: BoxFit.cover,
                 ),
               ),

@@ -30,7 +30,9 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.r),
             borderSide: const BorderSide(color: Colors.black)),
         prefixIcon: InkWell(
-            onTap: onPreClicked,
+            onTap: () {
+              onPreClicked();
+            },
             child: const Icon(Icons.search, color: Colors.white)),
         hintText: hint,
         hintStyle: Theme.of(context).textTheme.bodySmall,
