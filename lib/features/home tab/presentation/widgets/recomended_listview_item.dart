@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/styles.dart';
-
 import '../../../../core/utils/components/space.dart';
 
-class SecondListViewItem extends StatefulWidget {
-  final String image;
-  const SecondListViewItem({
-    Key? key,
-    required this.image,
-  }) : super(key: key);
+class RecommendedListViewItem extends StatefulWidget {
+  final Results movie;
+  const RecommendedListViewItem({Key? key, required this.movie})
+      : super(key: key);
 
   @override
-  State<SecondListViewItem> createState() => _SecondListViewItemState();
+  State<RecommendedListViewItem> createState() =>
+      _RecommendedListViewItemState();
 }
 
-class _SecondListViewItemState extends State<SecondListViewItem> {
+class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
   bool isBooked = false;
 
   @override
@@ -27,20 +26,23 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
       shadowColor: navigationBarShadowColor,
       color: const Color(0xFF343534),
       child: SizedBox(
-        height: 184.h,
+        height: 190.h, //184
         width: 97.w,
         child: Column(
           children: [
             Stack(
               children: [
                 SizedBox(
-                  width: 96.87.w,
-                  height: 127.74.h,
-                  child: Image.asset(widget.image),
+                  width: double.infinity,
+                  height: 122.74.h,
+                  child: Image.network(
+                    "https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}",
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Positioned(
-                  left: 0,
-                  top: 0,
+                  left: -1,
+                  top: -1,
                   child: InkWell(
                     onTap: () {
                       isBooked = isBooked == false ? true : false;
@@ -54,7 +56,6 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                 ),
               ],
             ),
-            const VerticalSpace(7),
             SizedBox(
               height: 58.h,
               width: 96.87,
@@ -62,6 +63,7 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                 padding: EdgeInsets.all(5.sp),
                 child: Column(children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const HorizontalSpace(6),
                       Image.asset(
@@ -69,25 +71,38 @@ class _SecondListViewItemState extends State<SecondListViewItem> {
                         width: 10.w,
                         height: 9.h,
                       ),
+                      const HorizontalSpace(5),
                       Text(
-                        '7.7',
-                        style: smallText,
+                        widget.movie.voteAverage.toString(),
+                        style: smallText3,
                       ),
                       const Spacer(),
                     ],
                   ),
                   const VerticalSpace(1),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(text: 'Deadpool 2\n', style: smallText),
-                        TextSpan(
-                          text: '2018 R 1h 59m',
-                          style: smallText.copyWith(fontSize: 8.sp),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Expanded(
+                      child: Text(
+                    widget.movie.title ?? "",
+                    style: smallText3,
+                    maxLines: 2,
+                  )),
+                  const VerticalSpace(1),
+                  Text(
+                      widget.movie.releaseDate?.substring(0, 4) ??
+                          "".substring(0, 4),
+                      style: verySmallText),
+                  // RichText(
+                  //   text: TextSpan(
+                  //     children: [
+                  //       TextSpan(text: widget.movie.title, style: smallText3,),
+                  //       TextSpan(
+                  //         text:
+                  //             "\n${widget.movie.releaseDate?.substring(0, 4)}",
+                  //         style: verySmallText,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ]),
               ),
             )

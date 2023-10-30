@@ -1,37 +1,41 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/core/utils/components/list_view.dart';
-import 'package:movies_app/core/utils/components/movie_item.dart';
+
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/widgets/category_item.dart';
 
+import '../../../core/api/models/movie_item.dart';
 import '../../../core/utils/assets.dart';
 import '../../../core/utils/styles.dart';
-import '../../home tab/presentation/widgets/second_listview_item.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  MovieDetailsScreen({super.key});
-  List<SecondListViewItem> secondList = [
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-    SecondListViewItem(image: bigTemp),
-  ];
+  final Results movie;
+  const MovieDetailsScreen({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
+  // List<SecondListViewItem> secondList = [
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  //   SecondListViewItem(image: bigTemp),
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Dora and the lost city of gold',
+          movie.title ?? '',
           style: tmpText.copyWith(
             fontSize: 20,
           ),
@@ -52,8 +56,8 @@ class MovieDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 217.h,
                 width: double.infinity,
-                child: Image.asset(
-                  bigTemp,
+                child: Image.network(
+                  "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -74,10 +78,9 @@ class MovieDetailsScreen extends StatelessWidget {
           RichText(
             text: TextSpan(
               children: [
+                TextSpan(text: '${movie.title}\n', style: tmpText),
                 TextSpan(
-                    text: 'Dora and the lost city of gold\n', style: tmpText),
-                TextSpan(
-                  text: '2019 PG-13 2h 7m',
+                  text: movie.releaseDate,
                   style: smallText,
                 ),
               ],
@@ -87,7 +90,7 @@ class MovieDetailsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const MovieItem(height: 199, width: 129),
+              // MovieItem(height: 199, width: 129,image: bigTemp),
               const HorizontalSpace(11),
               Expanded(
                 child: Column(
@@ -109,7 +112,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     ),
                     const VerticalSpace(13),
                     Text(
-                      'Having spent most of her life\nexploring the jungle, nothing could\nprepare Dora for her most dangerous\nadventure yet — high school. ',
+                      movie.overview ?? '',
                       style: smallText.copyWith(
                         color: const Color(0xFFCBCBCB),
                         fontSize: 13,
@@ -126,7 +129,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           height: 20.h,
                         ),
                         Text(
-                          '7.7',
+                          movie.voteAverage.toString(),
                           style: smallText.copyWith(fontSize: 16),
                         ),
                         const Spacer(),
@@ -138,10 +141,10 @@ class MovieDetailsScreen extends StatelessWidget {
             ],
           ),
           const VerticalSpace(18),
-          Expanded(
-            child: HorizontalListView(
-                hight: 246, list: secondList, text: 'More Like This'),
-          ),
+          // Expanded(
+          //   child: HorizontalListView(
+          //       hight: 246, list: secondList, text: 'More Like This'),
+          // ),
           const VerticalSpace(28.6),
         ],
       ),
