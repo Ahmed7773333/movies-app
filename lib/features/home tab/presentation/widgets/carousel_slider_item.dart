@@ -7,7 +7,9 @@ import 'package:movies_app/core/utils/components/open_container.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/page.dart';
 import '../../../../core/utils/assets.dart';
 import '../../../../core/utils/components/movie_item.dart';
+import '../../../../core/utils/components/open_container.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../movie detail screen/presentation/page.dart';
 
 class CarouselSliderItem extends StatelessWidget {
   final List<Results> movie;
@@ -58,14 +60,39 @@ class CarouselSliderItem extends StatelessWidget {
                       child: MovieItem(
                           height: 199,
                           width: 129,
-                          image:
-                              "https://image.tmdb.org/t/p/w500/${i.posterPath}"),
+
+                          image: "https://image.tmdb.org/t/p/w500/${i.posterPath}"),
                     ),
                     Positioned(
                       bottom: 10,
                       child: Column(
                         children: [
                           Padding(
+
+                            padding: EdgeInsets.only(left: 164.w,),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: i.title,
+                                      style: tmpText),
+                                  TextSpan(
+                                    text: '\n\n${i.releaseDate?.substring(
+                                        0, 4)} ',
+                                    style: smallText3.copyWith(color: greyColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                openedWidget: MovieDetailsScreen(movie: i)
+            );
+
                             padding: EdgeInsets.only(
                               left: 164.w,
                             ),
@@ -88,7 +115,6 @@ class CarouselSliderItem extends StatelessWidget {
                     )
                   ],
                 ),
-                openedWidget: MovieDetailsScreen(movie: i));
           },
         );
       }).toList(),

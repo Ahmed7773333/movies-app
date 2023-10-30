@@ -30,7 +30,7 @@ class _MovieItemState extends State<MovieItem> {
           height: widget.height.h,
           width: widget.width.w,
           child: Image.network(
-            widget.image,
+            "https://image.tmdb.org/t/p/w500/${widget.image}",
             fit: BoxFit.fill,
           ),
         ),

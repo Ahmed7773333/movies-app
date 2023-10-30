@@ -46,4 +46,31 @@ class ApiManager {
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
     return data;
   }
+
+  static Future<PopularMoviesItems> getMovieDetails({required int id}) async {
+    Uri url = Uri.https(baseUrl, "/3/movie/$id", {
+      "Authorization": authorizationAccessToken,
+      "accept": "application/json",
+      "api_key": apiKeyHatem,
+      "id":id
+    });
+
+    http.Response response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
+    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    return data;
+  }
+
+  static Future<PopularMoviesItems> getSimilarMovies({required int id}) async {
+    Uri url = Uri.https(baseUrl, "/3/movie/$id/similar", {
+      "Authorization": authorizationAccessToken,
+      "accept": "application/json",
+      "api_key": apiKeyHatem,
+    });
+
+    http.Response response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
+    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    return data;
+  }
 }

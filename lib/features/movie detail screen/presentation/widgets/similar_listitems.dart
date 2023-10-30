@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/core/api/models/movie_item.dart';
-import 'package:movies_app/core/utils/app_colors.dart';
-import 'package:movies_app/core/utils/assets.dart';
-import 'package:movies_app/core/utils/components/open_container.dart';
-import 'package:movies_app/core/utils/styles.dart';
-
+import 'package:movies_app/features/movie%20detail%20screen/presentation/page.dart';
+import '../../../../core/api/models/movie_item.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/assets.dart';
 import '../../../../core/utils/components/open_container.dart';
 import '../../../../core/utils/components/space.dart';
-import '../../../movie detail screen/presentation/page.dart';
+import '../../../../core/utils/styles.dart';
 
-class RecommendedListViewItem extends StatefulWidget {
+class SimilarListItem extends StatefulWidget {
   final Results movie;
 
-  const RecommendedListViewItem({Key? key, required this.movie})
-      : super(key: key);
+  const SimilarListItem(this.movie, {super.key});
 
   @override
-  State<RecommendedListViewItem> createState() =>
-      _RecommendedListViewItemState();
+  State<SimilarListItem> createState() => _SimilarListItemState();
 }
 
-class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
+class _SimilarListItemState extends State<SimilarListItem> {
   bool isBooked = false;
 
   @override
@@ -88,10 +84,10 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
                       const VerticalSpace(1),
                       Expanded(
                           child: Text(
-                        widget.movie.title ?? "",
-                        style: smallText3,
-                        maxLines: 2,
-                      )),
+                            widget.movie.title ?? "",
+                            style: smallText3,
+                            maxLines: 2,
+                          )),
                       const VerticalSpace(1),
                       Text(
                           widget.movie.releaseDate?.substring(0, 4) ??
@@ -116,8 +112,6 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
             ),
           ),
         ),
-        openedWidget: MovieDetailsScreen(movie: widget.movie)
-    );
-
+        openedWidget: MovieDetailsScreen(movie: widget.movie));
   }
 }
