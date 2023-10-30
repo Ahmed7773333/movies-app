@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/api/api_functions/api_manager_functions.dart';
 import '../../../../core/api/models/movie_item.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -30,27 +29,14 @@ class NewReleasesListView extends StatelessWidget {
               style: mediumText,
             ),
             const VerticalSpace(16),
-            FutureBuilder(
-              future: ApiManager.getMovies(index: 2),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return const Center(child: Text("Something went wrong!"));
-                }
-                var resultsList = snapshot.data?.results ?? [];
-                debugPrint('${resultsList.length}');
-                return Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return NewReleasesListViewItem(movie: resultsList[index]);
-                    },
-                    itemCount: resultsList.length,
-                  ),
-                );
-              },
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return NewReleasesListViewItem(movie: resultsList[index]);
+                },
+                itemCount: resultsList.length,
+              ),
             )
           ],
         ),

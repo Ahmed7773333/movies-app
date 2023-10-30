@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/widgets/similar_listitems.dart';
-import '../../../../core/api/api_functions/api_manager_functions.dart';
 import '../../../../core/api/models/movie_item.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/components/space.dart';

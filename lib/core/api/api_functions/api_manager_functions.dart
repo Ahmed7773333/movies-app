@@ -29,12 +29,12 @@ class ApiManager {
     return data;
   }
 
-  static Future<PopularMoviesItems> getMovieDetails({required int movie_id}) async {
-    Uri url = Uri.https(baseUrl, "/3/movie/${movie_id}", {
+  static Future<PopularMoviesItems> getMovieDetails({required int id}) async {
+    Uri url = Uri.https(baseUrl, "/3/movie/$id", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",
       "api_key": apiKeyHatem,
-      "id":movie_id
+      "id":id
     });
 
     http.Response response = await http.get(url);
@@ -43,8 +43,8 @@ class ApiManager {
     return data;
   }
 
-  static Future<PopularMoviesItems> getSimilarMovies({required int movie_id}) async {
-    Uri url = Uri.https(baseUrl, "/3/movie/${movie_id}/similar", {
+  static Future<PopularMoviesItems> getSimilarMovies({required int id}) async {
+    Uri url = Uri.https(baseUrl, "/3/movie/$id/similar", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",
       "api_key": apiKeyHatem,
