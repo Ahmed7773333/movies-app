@@ -6,7 +6,6 @@ import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/components/open_container.dart';
 import 'package:movies_app/core/utils/styles.dart';
 
-import '../../../../core/utils/components/open_container.dart';
 import '../../../../core/utils/components/space.dart';
 import '../../../movie detail screen/presentation/page.dart';
 
@@ -116,8 +115,6 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
             ),
           ),
         ),
-        openedWidget: MovieDetailsScreen(movie: widget.movie)
-    );
-
+        openedWidget: MovieDetailsScreen(movie: widget.movie));
   }
 }
