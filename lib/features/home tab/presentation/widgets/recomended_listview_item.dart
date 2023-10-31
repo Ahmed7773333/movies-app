@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/api/api_functions/api_manager_functions.dart';
 import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/assets.dart';
@@ -50,8 +51,7 @@ class _RecommendedListViewItemState extends State<RecommendedListViewItem> {
                       top: -1,
                       child: InkWell(
                         onTap: () {
-                          isBooked = isBooked == false ? true : false;
-                          setState(() {});
+                          ApiManager.addToWatchlist(widget.movie);
                         },
                         child: SizedBox(
                             width: 27.w,

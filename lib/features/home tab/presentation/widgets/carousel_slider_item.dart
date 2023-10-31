@@ -56,10 +56,12 @@ class CarouselSliderItem extends StatelessWidget {
                       left: 20.w,
                       top: 100.h,
                       child: MovieItem(
-                          height: 199,
-                          width: 129,
-                          image:
-                              "https://image.tmdb.org/t/p/w500/${i.posterPath}"),
+                        height: 199,
+                        width: 129,
+                        image:
+                            "https://image.tmdb.org/t/p/w500/${i.posterPath}",
+                        movie: i,
+                      ),
                     ),
                     Positioned(
                       bottom: 10,

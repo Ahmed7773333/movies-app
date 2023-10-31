@@ -41,7 +41,8 @@ class MovieDetailsScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: InkWell(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context, BottomBarScreen.routeName, (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, BottomBarScreen.routeName, (route) => false);
                 },
                 child: const Icon(Icons.home)),
           )
@@ -55,9 +56,9 @@ class MovieDetailsScreen extends StatelessWidget {
                 height: 217.h,
                 width: double.infinity,
                 child: Image.network(
-
-                  movie.backdropPath!=null?"https://image.tmdb.org/t/p/w500/${movie.backdropPath}":"https://image.tmdb.org/t/p/w500/${movie.posterPath}",
-
+                  movie.backdropPath != null
+                      ? "https://image.tmdb.org/t/p/w500/${movie.backdropPath}"
+                      : "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -76,15 +77,20 @@ class MovieDetailsScreen extends StatelessWidget {
           ),
           const VerticalSpace(10),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w,),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.w,
+            ),
             child: Row(
               children: [
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(text: '${movie.title}\n', style: tmpText,),
                       TextSpan(
-                        text: "${movie.releaseDate?.substring(0,4)}",
+                        text: '${movie.title}\n',
+                        style: tmpText,
+                      ),
+                      TextSpan(
+                        text: "${movie.releaseDate?.substring(0, 4)}",
                         style: smallText,
                       ),
                     ],
@@ -99,7 +105,12 @@ class MovieDetailsScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 10.w),
-                child: MovieItem(height: 199, width: 129,image: movie.posterPath??""),
+                child: MovieItem(
+                  height: 199,
+                  width: 129,
+                  image: movie.posterPath ?? "",
+                  movie: movie,
+                ),
               ),
               const HorizontalSpace(11),
               Expanded(
@@ -153,7 +164,8 @@ class MovieDetailsScreen extends StatelessWidget {
             ],
           ),
           const VerticalSpace(18),
-          FutureBuilder(future: ApiManager.getSimilarMovies(id: movie.id??0),
+          FutureBuilder(
+            future: ApiManager.getSimilarMovies(id: movie.id ?? 0),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
@@ -161,9 +173,9 @@ class MovieDetailsScreen extends StatelessWidget {
               if (snapshot.hasError) {
                 return const Center(child: Text("Something went wrong!"));
               }
-              List<Results> resultsList = snapshot.data?.results!.toList() ?? [];
-              return Expanded(
-                  child: SimilarListView(resultsList));
+              List<Results> resultsList =
+                  snapshot.data?.results!.toList() ?? [];
+              return Expanded(child: SimilarListView(resultsList));
             },
           ),
           const VerticalSpace(28.6),
