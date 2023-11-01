@@ -180,6 +180,37 @@ class ApiManager {
     debugPrint('${data.totalResults}');
     return data;
   }
+
+  static Future<PopularMoviesItems> getCategories({required String catID}) async {
+    Uri url = Uri.https(baseUrl, "/3/discover/movie", {
+      "Authorization": authorizationAccessToken,
+      "accept": "application/json",
+      "api_key": apiKeyAhmed,
+      "with_genres": catID
+    });
+
+    http.Response response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
+    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    return data;
+  }
+
+  static Future<bool> isBooked(int id) async {
+    Uri url = Uri.https(baseUrl, "/3/account/20637785/watchlist/movies", {
+      "Authorization": authorizationAccessToken,
+      "accept": "application/json",
+      "api_key": apiKeyAhmed,
+      "language": "en-US",
+      "page": '1',
+      "session_id": "f00791981152a1ed9e8ad4b51f3e344ea0b9cc31",
+      "sort_by": "created_at.asc",
+    });
+    http.Response response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
+    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    bool isBookedd = data.results?.any((item) => item.id == id) ?? false;
+    return isBookedd;
+  }
 }
 
     // Uri watchListUrl = Uri.https(

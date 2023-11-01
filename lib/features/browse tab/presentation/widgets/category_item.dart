@@ -19,12 +19,16 @@ class CategoryItems extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                child: Image.asset(
-                  categoryModel.categoryImage,
-                  fit: BoxFit.contain,
-                )),
+            SizedBox(
+              width: 158.w,
+              height: 90.h,
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  child: Image.asset(
+                    categoryModel.categoryImage,
+                    fit: BoxFit.fill,
+                  )),
+            ),
             Text(categoryModel.categoryName, style: mediumText2),
           ],
         ),
