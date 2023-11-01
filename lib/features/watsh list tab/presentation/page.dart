@@ -42,7 +42,15 @@ class _WatchListTabState extends State<WatchListTab> {
                         ? Expanded(
                             child: ListView.builder(
                               itemBuilder: ((context, index) {
-                                return WatchListItem(movie: resultsList[index]);
+                                return WatchListItem(
+                                  movie: resultsList[index],
+                                  onTapp: () {
+                                    ApiManager.deleteFromWatchlist(
+                                        resultsList[index]);
+                                    debugPrint('deleted');
+                                    setState(() {});
+                                  },
+                                );
                               }),
                               itemCount: resultsList.length,
                             ),
