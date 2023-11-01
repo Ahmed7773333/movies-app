@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/config/themes.dart';
+import 'package:movies_app/observer.dart';
 import 'features/bottom bar screen/presentation/bottom_bar.dart';
 import 'features/splach screen/splach_screen.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
+
   runApp(const MyApp());
 }
 
