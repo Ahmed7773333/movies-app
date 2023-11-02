@@ -11,11 +11,12 @@ class WatchListCubit extends Cubit<WatchListState> {
   WatchListRepo repo;
   static WatchListCubit get(context) => BlocProvider.of(context);
   List<Results> watchlList = [];
-  Future<void> getWatchlList() async {
+  Future<void> getWatchlistMovies() async {
     emit(WatchListLoadingState());
     try {
       PopularMoviesItems data = await repo.getWatchlistMovies();
       watchlList = data.results ?? [];
+
       emit(WatchListSuccessState());
     } catch (e) {
       emit(WatchListErrorState());
@@ -25,6 +26,7 @@ class WatchListCubit extends Cubit<WatchListState> {
 
   void deleteMovie(Results movie) {
     repo.deleteFromWatchlist(movie);
+
     emit(DeletedState());
   }
 }

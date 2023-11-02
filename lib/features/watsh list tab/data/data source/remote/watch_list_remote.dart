@@ -22,7 +22,7 @@ class WatchListRemote extends WatchListRepo {
     http.Response response = await http.get(url);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
-    debugPrint('${data.totalResults}');
+    debugPrint('${data.results?.length ?? 0}');
     return data;
   }
 

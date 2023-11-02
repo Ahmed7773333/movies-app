@@ -20,7 +20,7 @@ class _WatchListTabState extends State<WatchListTab> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          WatchListCubit(WatchListRemote()..getWatchlistMovies()),
+          WatchListCubit(WatchListRemote())..getWatchlistMovies(),
       child: BlocConsumer<WatchListCubit, WatchListState>(
         listener: (context, state) {
           if (state is WatchListLoadingState) {
@@ -30,7 +30,7 @@ class _WatchListTabState extends State<WatchListTab> {
           } else if (state is WatchListSuccessState) {
             debugPrint('working...');
           } else if (state is DeletedState) {
-            WatchListCubit.get(context).getWatchlList();
+            WatchListCubit.get(context).getWatchlistMovies();
             debugPrint('Deleted');
           }
         },
@@ -56,25 +56,24 @@ class _WatchListTabState extends State<WatchListTab> {
                                     movie: bloc.watchlList[index],
                                     onTapp: () {
                                       bloc.deleteMovie(bloc.watchlList[index]);
+                                      bloc.deleteMovie(bloc.watchlList[index]);
                                     },
                                   );
                                 }),
                                 itemCount: bloc.watchlList.length,
                               ),
                             )
-                          : Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(
-                                    empty,
-                                    width: 78.w,
-                                    height: 88,
-                                  ),
-                                  const VerticalSpace(11),
-                                  Text('No movies found', style: smallText2),
-                                ],
-                              ),
+                          : Column(
+                              children: [
+                                const VerticalSpace(280),
+                                Image.asset(
+                                  empty,
+                                  width: 78.w,
+                                  height: 88,
+                                ),
+                                const VerticalSpace(11),
+                                Text('No movies found', style: smallText2),
+                              ],
                             ),
                     ],
                   )));
