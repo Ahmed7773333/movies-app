@@ -1,24 +1,33 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:movies_app/core/api/models/movie_item.dart';
-import 'package:movies_app/core/utils/constants.dart';
+import 'package:movies_app/core/utils/components/movie_item_cubit.dart/movie_item_repo.dart';
 
-class ApiManager {
-  static Future<PopularMoviesItems> getSimilarMovies({required int id}) async {
-    Uri url = Uri.https(baseUrl, "/3/movie/$id/similar", {
+import '../../../api/models/movie_item.dart';
+import '../../constants.dart';
+
+class MovieItemRemote extends MovieItemRepo {
+  @override
+  Future<bool> isBooked(int id) async {
+    Uri url = Uri.https(baseUrl, "/3/account/20637785/watchlist/movies", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",
       "api_key": apiKeyAhmed,
+      "language": "en-US",
+      "page": '1',
+      "session_id": sessionId,
+      "sort_by": "created_at.asc",
     });
-
     http.Response response = await http.get(url);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
-    return data;
+    bool isBookedd = data.results?.any((item) => item.id == id) ?? false;
+    return isBookedd;
   }
 
-  static Future<void> addToWatchlist(Results movie) async {
+  @override
+  Future<void> addToWatchlist(Results movie) async {
     final Map<String, dynamic> requestBody = {
       "media_type": "movie",
       "media_id": movie.id,
@@ -55,20 +64,5 @@ class ApiManager {
     } catch (e) {
       debugPrint('Error: $e');
     }
-  }
-
-  static Future<PopularMoviesItems> getCategories(
-      {required String catID}) async {
-    Uri url = Uri.https(baseUrl, "/3/discover/movie", {
-      "Authorization": authorizationAccessToken,
-      "accept": "application/json",
-      "api_key": apiKeyAhmed,
-      "with_genres": catID
-    });
-
-    http.Response response = await http.get(url);
-    var jsonData = jsonDecode(response.body);
-    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
-    return data;
   }
 }

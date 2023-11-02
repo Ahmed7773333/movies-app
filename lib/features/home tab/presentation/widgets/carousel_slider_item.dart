@@ -18,7 +18,7 @@ class CarouselSliderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          autoPlay: true,
+          autoPlay: false,
           aspectRatio: 1.5,
           enlargeCenterPage: true,
           enlargeStrategy: CenterPageEnlargeStrategy.scale,

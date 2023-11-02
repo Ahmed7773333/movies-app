@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/page.dart';
 import '../../../../core/api/models/movie_item.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets.dart';
+import '../../../../core/utils/components/movie_item_cubit.dart/movie_item_cubit.dart';
+import '../../../../core/utils/components/movie_item_cubit.dart/movie_item_remote.dart';
 import '../../../../core/utils/components/open_container.dart';
 import '../../../../core/utils/components/space.dart';
 import '../../../../core/utils/styles.dart';
 
-class SimilarListItem extends StatefulWidget {
+class SimilarListItem extends StatelessWidget {
   final Results movie;
 
   const SimilarListItem(this.movie, {super.key});
-
-  @override
-  State<SimilarListItem> createState() => _SimilarListItemState();
-}
-
-class _SimilarListItemState extends State<SimilarListItem> {
-  bool isBooked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +34,45 @@ class _SimilarListItemState extends State<SimilarListItem> {
                       width: double.infinity,
                       height: 122.74.h,
                       child: Image.network(
-                        "https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}",
+                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                         fit: BoxFit.fill,
                       ),
                     ),
                     Positioned(
                       left: -1,
                       top: -1,
-                      child: InkWell(
-                        onTap: () {
-                          isBooked = isBooked == false ? true : false;
-                          setState(() {});
-                        },
-                        child: SizedBox(
-                            width: 27.w,
-                            height: 36.h,
-                            child: Image.asset(isBooked ? booked : notBooked)),
+                      child: BlocProvider(
+                        create: (context) => MovieItemCubit(MovieItemRemote())
+                          ..isBooked(movie.id ?? 0),
+                        child: BlocConsumer<MovieItemCubit, MovieItemState>(
+                          listener: (context, state) {
+                            if (state is MovieItemIChecking) {
+                              debugPrint('checking...');
+                            } else if (state is MovieItemChecked) {
+                              debugPrint('checked...');
+                            } else if (state is MovieItemAdd) {
+                              debugPrint('Added...');
+                            } else if (state is MovieItemChange) {
+                              MovieItemCubit.get(context)
+                                  .isBooked(movie.id ?? 0);
+                              debugPrint('Changed...');
+                            }
+                          },
+                          builder: (context, state) {
+                            final bloc = MovieItemCubit.get(context);
+
+                            return InkWell(
+                              onTap: () {
+                                bloc.addToWatchlist(movie);
+                              },
+                              child: SizedBox(
+                                  width: 27.w,
+                                  height: 36.h,
+                                  child: Image.asset(
+                                      bloc.isbooked ? booked : notBooked)),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -75,7 +94,7 @@ class _SimilarListItemState extends State<SimilarListItem> {
                           ),
                           const HorizontalSpace(5),
                           Text(
-                            widget.movie.voteAverage.toString(),
+                            movie.voteAverage.toString(),
                             style: smallText3,
                           ),
                           const Spacer(),
@@ -84,13 +103,13 @@ class _SimilarListItemState extends State<SimilarListItem> {
                       const VerticalSpace(1),
                       Expanded(
                           child: Text(
-                            widget.movie.title ?? "",
-                            style: smallText3,
-                            maxLines: 2,
-                          )),
+                        movie.title ?? "",
+                        style: smallText3,
+                        maxLines: 2,
+                      )),
                       const VerticalSpace(1),
                       Text(
-                          widget.movie.releaseDate ?? //substring here, causes error in some movies
+                          movie.releaseDate ?? //substring here, causes error in some movies
                               "".substring(0, 4),
                           style: verySmallText),
                       // RichText(
@@ -112,6 +131,6 @@ class _SimilarListItemState extends State<SimilarListItem> {
             ),
           ),
         ),
-        openedWidget: MovieDetailsScreen(movie: widget.movie));
+        openedWidget: MovieDetailsScreen(movie: movie));
   }
 }

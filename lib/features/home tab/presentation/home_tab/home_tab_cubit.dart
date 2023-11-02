@@ -16,26 +16,18 @@ class HomeTabCubit extends Cubit<HomeTabState> {
   List<Results> recomendedList = [];
 
   Future<void> getAllLists() async {
-    emit(RecomendedListLoadingState());
-    emit(ReleaseListLoadingState());
-    emit(CarouselListLoadingState());
-
     try {
       PopularMoviesItems data3 = await repo.getMovies(index: 3);
+      emit(HomeLoadingState());
       PopularMoviesItems data2 = await repo.getMovies(index: 2);
       PopularMoviesItems data1 = await repo.getMovies(index: 1);
 
       carouselList = data1.results ?? [];
       newReleaseList = data2.results ?? [];
       recomendedList = data3.results ?? [];
-      emit(ReleaseListSuccessState());
-      emit(CarouselListSuccessState());
-
-      emit(RecomendedListSuccessState());
+      emit(HomeSuccessState());
     } catch (e) {
-      emit(RecomendedListErrorState());
-      emit(ReleaseListErrorState());
-      emit(CarouselListErrorState());
+      emit(HomeErrorState());
 
       rethrow;
     }

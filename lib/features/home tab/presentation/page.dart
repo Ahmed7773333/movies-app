@@ -27,25 +27,23 @@ class _HomeTabState extends State<HomeTab> {
       },
       child: BlocConsumer<HomeTabCubit, HomeTabState>(
         listener: (context, state) {
-          if (state is RecomendedListLoadingState ||
-              state is ReleaseListLoadingState ||
-              state is CarouselListLoadingState) {
+          if (state is HomeLoadingState) {
             showDialog(
               context: context,
               builder: (context) => const AlertDialog(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: Center(child: CircularProgressIndicator()),
+                title: Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.blue,
+                )),
               ),
             );
             debugPrint('loading...');
-          } else if (state is RecomendedListErrorState ||
-              state is ReleaseListErrorState ||
-              state is CarouselListErrorState) {
+          } else if (state is HomeErrorState) {
             debugPrint('error...');
-          } else if (state is RecomendedListSuccessState &&
-              state is ReleaseListSuccessState &&
-              state is CarouselListSuccessState) {
+          }
+          if (state is HomeSuccessState) {
             Navigator.pop(context);
             debugPrint('working...');
           }
