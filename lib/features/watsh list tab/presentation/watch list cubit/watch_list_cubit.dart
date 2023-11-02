@@ -28,5 +28,8 @@ class WatchListCubit extends Cubit<WatchListState> {
     repo.deleteFromWatchlist(movie);
 
     emit(DeletedState());
+    repo.deleteFromWatchlist(movie);
+
+    emit(DeletedState());
   }
 }

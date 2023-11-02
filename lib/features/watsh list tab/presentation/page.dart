@@ -56,7 +56,6 @@ class _WatchListTabState extends State<WatchListTab> {
                                     movie: bloc.watchlList[index],
                                     onTapp: () {
                                       bloc.deleteMovie(bloc.watchlList[index]);
-                                      bloc.deleteMovie(bloc.watchlList[index]);
                                     },
                                   );
                                 }),
