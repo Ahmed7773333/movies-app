@@ -28,21 +28,12 @@ class HomeRemote extends HomeRepo {
       "api_key": apiKeyAhmed,
       "accept": "application/json"
     });
-    Uri searchUrl = Uri.https(baseUrl, "/3/search/movie", {
-      "Authorization": authorizationAccessToken,
-      "language": 'en',
-      "api_key": apiKeyAhmed,
-      "accept": "application/json",
-      "query": q,
-    });
 
     http.Response response = await http.get(index == 1
         ? url
         : index == 2
             ? url2
-            : index == 3
-                ? url3
-                : searchUrl);
+            : url3);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
     return data;

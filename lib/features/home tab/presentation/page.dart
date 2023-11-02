@@ -30,14 +30,23 @@ class _HomeTabState extends State<HomeTab> {
           if (state is RecomendedListLoadingState ||
               state is ReleaseListLoadingState ||
               state is CarouselListLoadingState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Center(child: CircularProgressIndicator()),
+              ),
+            );
             debugPrint('loading...');
           } else if (state is RecomendedListErrorState ||
               state is ReleaseListErrorState ||
               state is CarouselListErrorState) {
             debugPrint('error...');
-          } else if (state is RecomendedListSuccessState ||
-              state is ReleaseListSuccessState ||
+          } else if (state is RecomendedListSuccessState &&
+              state is ReleaseListSuccessState &&
               state is CarouselListSuccessState) {
+            Navigator.pop(context);
             debugPrint('working...');
           }
         },
