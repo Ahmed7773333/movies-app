@@ -1,19 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/api/models/movie_item.dart';
 
 import 'package:movies_app/core/utils/assets.dart';
 
+import '../../api/api_functions/api_manager_functions.dart';
+
 class MovieItem extends StatefulWidget {
+  const MovieItem(
+      {super.key,
+      required this.height,
+      required this.width,
+      required this.image,
+      required this.movie});
   final double height;
   final double width;
   final String image;
-  const MovieItem({
-    Key? key,
-    required this.height,
-    required this.width,
-    required this.image
-  }) : super(key: key);
+  final Results movie;
 
   @override
   State<MovieItem> createState() => _MovieItemState();
@@ -39,6 +43,8 @@ class _MovieItemState extends State<MovieItem> {
           top: 0,
           child: InkWell(
             onTap: () {
+              ApiManager.addToWatchlist(widget.movie);
+              debugPrint('working');
               isBooked = isBooked == false ? true : false;
               setState(() {});
             },

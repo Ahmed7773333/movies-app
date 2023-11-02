@@ -1,28 +1,37 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/constants.dart';
+import 'package:movies_app/features/watsh%20list%20tab/domain/watch_list_repo.dart';
 
-class ApiManager {
-  static Future<PopularMoviesItems> getSimilarMovies({required int id}) async {
-    Uri url = Uri.https(baseUrl, "/3/movie/$id/similar", {
+class WatchListRemote extends WatchListRepo {
+  @override
+  Future<PopularMoviesItems> getWatchlistMovies() async {
+    Uri url = Uri.https(baseUrl, "/3/account/20637785/watchlist/movies", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",
       "api_key": apiKeyAhmed,
+      "language": "en-US",
+      "page": '1',
+      "session_id": sessionId,
+      "sort_by": "created_at.asc",
     });
 
     http.Response response = await http.get(url);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    debugPrint('${data.results?.length ?? 0}');
     return data;
   }
 
-  static Future<void> addToWatchlist(Results movie) async {
+  @override
+  Future<void> deleteFromWatchlist(Results movie) async {
     final Map<String, dynamic> requestBody = {
       "media_type": "movie",
       "media_id": movie.id,
-      "watchlist": true,
+      "watchlist": false,
     };
 
     final Map<String, String> headers = {
@@ -45,47 +54,15 @@ class ApiManager {
 
       if (response.statusCode == 201) {
         // Successfully added to watchlist
-        debugPrint('Movie added to watchlist.');
+        debugPrint('Movie deleted watchlist.');
       } else {
         // Handle errors here
         debugPrint(
-            'Failed to add movie to watchlist. Status code: ${response.statusCode}');
+            'Failed to delete movie from watchlist. Status code: ${response.statusCode}');
         debugPrint('Response body: ${response.body}');
       }
     } catch (e) {
       debugPrint('Error: $e');
     }
-  }
-
-  static Future<PopularMoviesItems> getCategories(
-      {required String catID}) async {
-    Uri url = Uri.https(baseUrl, "/3/discover/movie", {
-      "Authorization": authorizationAccessToken,
-      "accept": "application/json",
-      "api_key": apiKeyAhmed,
-      "with_genres": catID
-    });
-
-    http.Response response = await http.get(url);
-    var jsonData = jsonDecode(response.body);
-    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
-    return data;
-  }
-
-  static Future<bool> isBooked(int id) async {
-    Uri url = Uri.https(baseUrl, "/3/account/20637785/watchlist/movies", {
-      "Authorization": authorizationAccessToken,
-      "accept": "application/json",
-      "api_key": apiKeyAhmed,
-      "language": "en-US",
-      "page": '1',
-      "session_id": "f00791981152a1ed9e8ad4b51f3e344ea0b9cc31",
-      "sort_by": "created_at.asc",
-    });
-    http.Response response = await http.get(url);
-    var jsonData = jsonDecode(response.body);
-    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
-    bool isBookedd = data.results?.any((item) => item.id == id) ?? false;
-    return isBookedd;
   }
 }

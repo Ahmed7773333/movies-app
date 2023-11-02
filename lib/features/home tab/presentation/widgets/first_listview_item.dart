@@ -5,6 +5,8 @@ import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/components/open_container.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/page.dart';
 
+import '../../../../core/api/api_functions/api_manager_functions.dart';
+
 // ignore: must_be_immutable
 class NewReleasesListViewItem extends StatefulWidget {
   Results movie;
@@ -35,8 +37,8 @@ class _NewReleasesListViewItemState extends State<NewReleasesListViewItem> {
             top: 0,
             child: InkWell(
               onTap: () {
-                isBooked = isBooked == false ? true : false;
-                setState(() {});
+                ApiManager.addToWatchlist(widget.movie);
+                debugPrint('working');
               },
               child: SizedBox(
                   width: 27.w,
