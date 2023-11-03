@@ -23,7 +23,7 @@ class _SimilarListViewState extends State<SimilarListView> {
       height: 184.h,
       color: listViewColor,
       child: Padding(
-        padding: EdgeInsets.only(top: 13.h, left: 13.w),
+        padding: EdgeInsets.only(top: 10.h, left: 13.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +31,7 @@ class _SimilarListViewState extends State<SimilarListView> {
               "More Like This",
               style: smallText.copyWith(fontSize: 15),
             ),
-            const VerticalSpace(16),
+            const VerticalSpace(8),
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,

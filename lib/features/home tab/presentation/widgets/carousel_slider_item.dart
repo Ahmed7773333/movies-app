@@ -36,7 +36,9 @@ class CarouselSliderItem extends StatelessWidget {
                           height: 217.h,
                           width: double.infinity,
                           child: Image.network(
-                            "https://image.tmdb.org/t/p/w500/${i.backdropPath}",
+                            i.backdropPath != null
+                                ? "https://image.tmdb.org/t/p/w500/${i.backdropPath}"
+                                : (i.posterPath!=null?"https://image.tmdb.org/t/p/w500/${i.posterPath}":logo),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -59,7 +61,7 @@ class CarouselSliderItem extends StatelessWidget {
                         height: 199,
                         width: 129,
                         image:
-                            "https://image.tmdb.org/t/p/w500/${i.posterPath}",
+                        i.posterPath!=null?"https://image.tmdb.org/t/p/w500/${i.posterPath}":logo,
                         movie: i,
                       ),
                     ),

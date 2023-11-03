@@ -9,7 +9,7 @@ import '../../../search tab/presentation/widgets/search_listViewitem.dart';
 
 class CatgeorytIdListview extends StatelessWidget {
   final String cat;
-  final String id;
+  final int id;
   const CatgeorytIdListview({
     Key? key,
     required this.cat,
@@ -26,7 +26,7 @@ class CatgeorytIdListview extends StatelessWidget {
         ),
       ),
       body: FutureBuilder(
-        future: ApiManager.getCategories(catID: id),
+        future: ApiManager.getCategories(catID: id.toString()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

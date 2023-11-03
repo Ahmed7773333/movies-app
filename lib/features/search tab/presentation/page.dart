@@ -55,13 +55,13 @@ class SearchTab extends StatelessWidget {
                       )
                     : Column(
                         children: [
-                          const VerticalSpace(280),
+                          const VerticalSpace(275),
                           Image.asset(
                             empty,
                             width: 78.w,
                             height: 88,
                           ),
-                          const VerticalSpace(11),
+                          const VerticalSpace(10),
                           Text('No movies found', style: smallText2),
                         ],
                       ),

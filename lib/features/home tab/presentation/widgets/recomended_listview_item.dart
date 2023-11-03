@@ -36,7 +36,7 @@ class RecommendedListViewItem extends StatelessWidget {
                       width: double.infinity,
                       height: 122.74.h,
                       child: Image.network(
-                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                        movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}":logo,
                         fit: BoxFit.fill,
                       ),
                     ),

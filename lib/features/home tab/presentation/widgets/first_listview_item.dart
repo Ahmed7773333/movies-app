@@ -23,7 +23,7 @@ class NewReleasesListViewItem extends StatelessWidget {
               width: 96.87.w,
               height: 127.74.h,
               child: Image.network(
-                  "https://image.tmdb.org/t/p/w500/${movie.posterPath}"),
+                  movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}":logo),
             ),
             openedWidget: MovieDetailsScreen(movie: movie)),
         Positioned(

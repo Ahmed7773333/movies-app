@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:movies_app/core/api/models/movie_item.dart';
+import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/components/open_container.dart';
 import 'package:movies_app/core/utils/components/space.dart';
 import 'package:movies_app/core/utils/styles.dart';
@@ -28,26 +29,30 @@ class SearchListItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(4)),
                     child: Image.network(
-                      "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                      movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}":logo,
                       fit: BoxFit.fill,
                       height: 100,
                       width: 60,
                     ),
                   ),
                   const HorizontalSpace(5),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(text: TextSpan(text: movie.title??"")),
-                        const VerticalSpace(5),
-                        Text(
-                          movie.releaseDate ?? '',
-                          style: smallText2,
-                        ),
-                        const VerticalSpace(5)
-                      ],
+                  SizedBox(
+                    width: 300.w,
+                    height: 100.h,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(movie.title??"",overflow: TextOverflow.ellipsis,style: mediumText,),
+                          const VerticalSpace(5),
+                          Text(
+                            movie.releaseDate ?? '',
+                            style: smallText2,
+                          ),
+                          const VerticalSpace(5)
+                        ],
+                      ),
                     ),
                   )
                 ],

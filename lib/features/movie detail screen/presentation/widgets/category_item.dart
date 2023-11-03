@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/styles.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
+  final String name;
+  const CategoryItem(this.name,{super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 65.w,
       height: 25.h,
+      margin: EdgeInsets.symmetric(horizontal: 4.w),
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
           side: const BorderSide(width: 1, color: Color(0xFF514F4F)),
@@ -18,7 +20,7 @@ class CategoryItem extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          'action',
+          name,
           style: smallText.copyWith(
             color: const Color(0xFFCBCBCB),
             fontSize: 10,

@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/constants.dart';
 
+import '../models/api_category_model.dart';
+
 class ApiManager {
   static Future<PopularMoviesItems> getSimilarMovies({required int id}) async {
     Uri url = Uri.https(baseUrl, "/3/movie/$id/similar", {
@@ -57,7 +59,7 @@ class ApiManager {
     }
   }
 
-  static Future<PopularMoviesItems> getCategories(
+  static Future<ApiCategoryModel> getCategories(
       {required String catID}) async {
     Uri url = Uri.https(baseUrl, "/3/discover/movie", {
       "Authorization": authorizationAccessToken,
@@ -65,10 +67,9 @@ class ApiManager {
       "api_key": apiKeyAhmed,
       "with_genres": catID
     });
-
     http.Response response = await http.get(url);
     var jsonData = jsonDecode(response.body);
-    PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    ApiCategoryModel data = ApiCategoryModel.fromJson(jsonData);
     return data;
   }
 }

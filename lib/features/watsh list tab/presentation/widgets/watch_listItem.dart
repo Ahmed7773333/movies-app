@@ -39,11 +39,14 @@ class _WatchListItemState extends State<WatchListItem> {
                   Stack(
                     children: [
                       SizedBox(
-                        width: 140.w,
-                        height: 89.h,
-                        child: Image.network(
-                          "https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}",
-                          fit: BoxFit.fill,
+                        width: 100.w,
+                        height: 90.h,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          child: Image.network(
+                            widget.movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}":logo,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                       Positioned(
@@ -59,20 +62,25 @@ class _WatchListItemState extends State<WatchListItem> {
                     ],
                   ),
                   const HorizontalSpace(5),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                            text: TextSpan(text: widget.movie.title ?? "")),
-                        const VerticalSpace(5),
-                        Text(
-                          widget.movie.releaseDate?.substring(0, 4) ?? '',
-                          style: smallText2,
+                  Expanded(
+                    child: SizedBox(
+                      width: 220,
+                      height: 100,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.movie.title??"",overflow: TextOverflow.ellipsis,style: mediumText,),
+                            const VerticalSpace(5),
+                            Text(
+                              widget.movie.releaseDate?.substring(0, 4) ?? '',
+                              style: smallText2,
+                            ),
+                            const VerticalSpace(5)
+                          ],
                         ),
-                        const VerticalSpace(5)
-                      ],
+                      ),
                     ),
                   )
                 ],

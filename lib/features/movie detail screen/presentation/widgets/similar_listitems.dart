@@ -34,7 +34,7 @@ class SimilarListItem extends StatelessWidget {
                       width: double.infinity,
                       height: 122.74.h,
                       child: Image.network(
-                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                        movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}": logo,
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -109,8 +109,7 @@ class SimilarListItem extends StatelessWidget {
                       )),
                       const VerticalSpace(1),
                       Text(
-                          movie.releaseDate ?? //substring here, causes error in some movies
-                              "".substring(0, 4),
+                          movie.releaseDate ?? "", //substring here, causes error in some movies
                           style: verySmallText),
                       // RichText(
                       //   text: TextSpan(
