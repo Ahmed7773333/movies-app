@@ -4,12 +4,13 @@ import 'package:movies_app/core/utils/assets.dart';
 class CategoryModel {
   final String categoryName;
   final String categoryImage;
-  final int id;
+  // ignore: prefer_typing_uninitialized_variables
+  final id;
 
   CategoryModel(this.categoryName, this.categoryImage, this.id);
 
   static List<CategoryModel> getCategories(bool viewMore) {
-    if(viewMore){
+    if (viewMore) {
       return [
         CategoryModel("Action", actionCat, 28),
         CategoryModel("Adventure", adventureCat, 12),
@@ -28,7 +29,7 @@ class CategoryModel {
         CategoryModel("War", warCat, 10752),
         CategoryModel("Western", westernCat, 37),
       ];
-    }else{
+    } else {
       return [
         CategoryModel("Action", actionCat, 28),
         CategoryModel("Adventure", adventureCat, 12),

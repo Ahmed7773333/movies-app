@@ -146,29 +146,32 @@ class MovieDetailsScreen extends StatelessWidget {
                                       getGenreNames(movie.genreIds ?? []);
                                   return CategoryItem(genreNames[index]);
                                 },
-                                itemCount: movie.genreIds!.length<=3?movie.genreIds?.length:3,
+                                itemCount: movie.genreIds!.length <= 3
+                                    ? movie.genreIds?.length
+                                    : 3,
                                 scrollDirection: Axis.horizontal),
                           )
                         ],
                       ),
                     ),
                     const VerticalSpace(6),
-                    movie.genreIds!.length>=4? SizedBox(
-                      width: 220,
-                      height: 25,
-                      child: Expanded(
-                        child: ListView.builder(
-                            itemBuilder: (context, index) {
-                                index+=3;
-                                List<String> genreNames =
-                                getGenreNames(movie.genreIds ?? []);
-                                return CategoryItem(genreNames[index]);
-
-                            },
-                            itemCount: movie.genreIds!.length-3,
-                            scrollDirection: Axis.horizontal),
-                      ),
-                    ): const SizedBox.shrink(),
+                    movie.genreIds!.length >= 4
+                        ? SizedBox(
+                            width: 220,
+                            height: 25,
+                            child: Expanded(
+                              child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    index += 3;
+                                    List<String> genreNames =
+                                        getGenreNames(movie.genreIds ?? []);
+                                    return CategoryItem(genreNames[index]);
+                                  },
+                                  itemCount: movie.genreIds!.length - 3,
+                                  scrollDirection: Axis.horizontal),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
                     const VerticalSpace(10),
                     Text(
                       movie.overview ?? '',
@@ -250,9 +253,7 @@ class MovieDetailsScreen extends StatelessWidget {
       Map<String, dynamic>? genre = genres.firstWhere(
         (genre) => genre['id'] == id,
       );
-      if (genre != null) {
-        genreNames.add(genre['name'] as String);
-      }
+      genreNames.add(genre['name'] as String);
     }
     return genreNames;
   }

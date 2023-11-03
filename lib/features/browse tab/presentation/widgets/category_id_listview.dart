@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/styles.dart';
+import 'package:movies_app/features/browse%20tab/presentation/widgets/category_list_view.dart';
 
 import '../../../../core/api/api_functions/api_manager_functions.dart';
-import '../../../search tab/presentation/widgets/search_listViewitem.dart';
 
 class CatgeorytIdListview extends StatelessWidget {
   final String cat;
-  final int id;
+  final num id;
   const CatgeorytIdListview({
     Key? key,
     required this.cat,
@@ -32,6 +32,8 @@ class CatgeorytIdListview extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
+            debugPrint(snapshot.error.toString());
+
             return const Center(child: Text("Something went wrong!"));
           }
           List<Results> resultsList = snapshot.data?.results!.toList() ?? [];
@@ -39,7 +41,7 @@ class CatgeorytIdListview extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 10, top: 12),
-                child: SearchListItem(movie: resultsList[index]),
+                child: CategoryListItem(movie: resultsList[index]),
               );
             },
             itemCount: resultsList.length,

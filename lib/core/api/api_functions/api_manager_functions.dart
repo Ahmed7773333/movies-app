@@ -59,8 +59,7 @@ class ApiManager {
     }
   }
 
-  static Future<ApiCategoryModel> getCategories(
-      {required String catID}) async {
+  static Future<ApiCategoryModel> getCategories({required String catID}) async {
     Uri url = Uri.https(baseUrl, "/3/discover/movie", {
       "Authorization": authorizationAccessToken,
       "accept": "application/json",

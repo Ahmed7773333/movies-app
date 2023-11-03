@@ -2,10 +2,11 @@ import 'movie_item.dart';
 
 class ApiCategoryModel {
   ApiCategoryModel({
-      this.page, 
-      this.results,
-      this.totalPages, 
-      this.totalResults,});
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
+  });
 
   ApiCategoryModel.fromJson(dynamic json) {
     page = json['page'];

@@ -34,7 +34,7 @@ class SimilarListItem extends StatelessWidget {
                       width: double.infinity,
                       height: 122.74.h,
                       child: Image.network(
-                        movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}": logo,
+                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -109,20 +109,9 @@ class SimilarListItem extends StatelessWidget {
                       )),
                       const VerticalSpace(1),
                       Text(
-                          movie.releaseDate ?? "", //substring here, causes error in some movies
+                          movie.releaseDate ?? //substring here, causes error in some movies
+                              "".substring(0, 4),
                           style: verySmallText),
-                      // RichText(
-                      //   text: TextSpan(
-                      //     children: [
-                      //       TextSpan(text: widget.movie.title, style: smallText3,),
-                      //       TextSpan(
-                      //         text:
-                      //             "\n${widget.movie.releaseDate?.substring(0, 4)}",
-                      //         style: verySmallText,
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ]),
                   ),
                 )

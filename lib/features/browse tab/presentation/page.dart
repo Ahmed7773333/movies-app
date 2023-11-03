@@ -12,7 +12,7 @@ class BrowseTab extends StatefulWidget {
 }
 
 class _BrowseTabState extends State<BrowseTab> {
-  bool viewMore=false;
+  bool viewMore = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +31,18 @@ class _BrowseTabState extends State<BrowseTab> {
           Row(
             children: [
               const Spacer(),
-              TextButton(onPressed: () {
-                if(viewMore){
-                  viewMore=false;
-                }else{
-                  viewMore=true;
-                }
-                setState(() {
-
-                });
-              }, child: viewMore?const Text("View less"): const Text("View more")),
+              TextButton(
+                  onPressed: () {
+                    if (viewMore) {
+                      viewMore = false;
+                    } else {
+                      viewMore = true;
+                    }
+                    setState(() {});
+                  },
+                  child: viewMore
+                      ? const Text("View less")
+                      : const Text("View more")),
             ],
           )
         ],
