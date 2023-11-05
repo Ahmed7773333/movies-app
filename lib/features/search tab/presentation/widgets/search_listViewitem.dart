@@ -18,6 +18,26 @@ class SearchListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget image = movie.backdropPath != null
+        ? Image.network(
+            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+            fit: BoxFit.fill,
+            height: 100,
+            width: 60,
+          )
+        : movie.posterPath != null
+            ? Image.network(
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              )
+            : Image.asset(
+                logo,
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              );
     return OpenContainers(
         closedWidget: Padding(
           padding: const EdgeInsets.only(left: 8),
@@ -27,14 +47,8 @@ class SearchListItem extends StatelessWidget {
               Row(
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    child: Image.network(
-                      movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}":logo,
-                      fit: BoxFit.fill,
-                      height: 100,
-                      width: 60,
-                    ),
-                  ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                      child: image),
                   const HorizontalSpace(5),
                   SizedBox(
                     width: 300.w,
@@ -44,10 +58,14 @@ class SearchListItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(movie.title??"",overflow: TextOverflow.ellipsis,style: mediumText,),
+                          Text(
+                            movie.title ?? "???????????",
+                            overflow: TextOverflow.ellipsis,
+                            style: mediumText,
+                          ),
                           const VerticalSpace(5),
                           Text(
-                            movie.releaseDate ?? '',
+                            movie.releaseDate ?? '?????????',
                             style: smallText2,
                           ),
                           const VerticalSpace(5)

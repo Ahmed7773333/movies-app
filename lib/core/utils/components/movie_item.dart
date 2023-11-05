@@ -22,6 +22,26 @@ class MovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget image = movie.backdropPath != null
+        ? Image.network(
+            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+            fit: BoxFit.fill,
+            height: 100,
+            width: 60,
+          )
+        : movie.posterPath != null
+            ? Image.network(
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              )
+            : Image.asset(
+                logo,
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              );
     return BlocProvider(
       create: (context) =>
           MovieItemCubit(MovieItemRemote())..isBooked(movie.id ?? 0),
@@ -33,6 +53,8 @@ class MovieItem extends StatelessWidget {
             debugPrint('checked...');
           } else if (state is MovieItemAdd) {
             debugPrint('Added...');
+          } else if (state is MovieItemDelete) {
+            debugPrint('Delted...');
           } else if (state is MovieItemChange) {
             MovieItemCubit.get(context).isBooked(movie.id ?? 0);
             debugPrint('Changed...');
@@ -42,20 +64,17 @@ class MovieItem extends StatelessWidget {
           final bloc = MovieItemCubit.get(context);
           return Stack(
             children: [
-              SizedBox(
-                height: height.h,
-                width: width.w,
-                child: Image.network(
-                  "https://image.tmdb.org/t/p/w500/$image",
-                  fit: BoxFit.fill,
-                ),
-              ),
+              SizedBox(height: height.h, width: width.w, child: image),
               Positioned(
                 left: 0,
                 top: 0,
                 child: InkWell(
                   onTap: () {
-                    bloc.addToWatchlist(movie);
+                    if (!(bloc.isbooked)) {
+                      bloc.addToWatchlist(movie);
+                    } else {
+                      bloc.deleteMovie(movie);
+                    }
                   },
                   child: SizedBox(
                       width: 27.w,

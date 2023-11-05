@@ -18,6 +18,26 @@ class SimilarListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget image = movie.backdropPath != null
+        ? Image.network(
+            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+            fit: BoxFit.fill,
+            height: 100,
+            width: 60,
+          )
+        : movie.posterPath != null
+            ? Image.network(
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              )
+            : Image.asset(
+                logo,
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              );
     return OpenContainers(
         closedWidget: Card(
           elevation: 20,
@@ -31,13 +51,7 @@ class SimilarListItem extends StatelessWidget {
                 Stack(
                   children: [
                     SizedBox(
-                      width: double.infinity,
-                      height: 122.74.h,
-                      child: Image.network(
-                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                        width: double.infinity, height: 122.74.h, child: image),
                     Positioned(
                       left: -1,
                       top: -1,
@@ -63,7 +77,11 @@ class SimilarListItem extends StatelessWidget {
 
                             return InkWell(
                               onTap: () {
-                                bloc.addToWatchlist(movie);
+                                if (!(bloc.isbooked)) {
+                                  bloc.addToWatchlist(movie);
+                                } else {
+                                  bloc.deleteMovie(movie);
+                                }
                               },
                               child: SizedBox(
                                   width: 27.w,

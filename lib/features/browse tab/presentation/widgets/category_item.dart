@@ -23,7 +23,7 @@ class CategoryItems extends StatelessWidget {
               width: 158.w,
               height: 90.h,
               child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(8.r)),
                   child: Image.asset(
                     categoryModel.categoryImage,
                     fit: BoxFit.fill,

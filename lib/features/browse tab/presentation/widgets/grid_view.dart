@@ -20,9 +20,7 @@ class GridViewCatItem extends StatelessWidget {
         childAspectRatio: 1.2,
         crossAxisSpacing: 30,
       ),
-      children: categories
-          .map((cat) => InkWell(onTap: () {}, child: CategoryItems(cat)))
-          .toList(),
+      children: categories.map((cat) => CategoryItems(cat)).toList(),
     );
   }
 }

@@ -36,7 +36,9 @@ class RecommendedListViewItem extends StatelessWidget {
                       width: double.infinity,
                       height: 122.74.h,
                       child: Image.network(
-                        movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}":logo,
+                        movie.posterPath != null
+                            ? "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
+                            : logo,
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -65,7 +67,11 @@ class RecommendedListViewItem extends StatelessWidget {
 
                             return InkWell(
                               onTap: () {
-                                bloc.addToWatchlist(movie);
+                                if (!(bloc.isbooked)) {
+                                  bloc.addToWatchlist(movie);
+                                } else {
+                                  bloc.deleteMovie(movie);
+                                }
                               },
                               child: SizedBox(
                                   width: 27.w,

@@ -20,14 +20,14 @@ class CategoryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return OpenContainers(
         closedWidget: Padding(
-          padding: const EdgeInsets.only(left: 8),
+          padding: EdgeInsets.only(left: 8.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    borderRadius: BorderRadius.all(Radius.circular(4.r)),
                     child: Image.network(
                       movie.posterPath != null
                           ? "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
@@ -42,7 +42,7 @@ class CategoryListItem extends StatelessWidget {
                     width: 300.w,
                     height: 100.h,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.r),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -12,7 +12,7 @@ import '../../../../core/utils/assets.dart';
 import '../../../../core/utils/components/open_container.dart';
 import '../../../movie detail screen/presentation/page.dart';
 
-class WatchListItem extends StatefulWidget {
+class WatchListItem extends StatelessWidget {
   final Results movie;
   final VoidCallback onTapp;
   const WatchListItem({
@@ -22,12 +22,27 @@ class WatchListItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<WatchListItem> createState() => _WatchListItemState();
-}
-
-class _WatchListItemState extends State<WatchListItem> {
-  @override
   Widget build(BuildContext context) {
+    final Widget image = movie.backdropPath != null
+        ? Image.network(
+            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+            fit: BoxFit.fill,
+            height: 100,
+            width: 60,
+          )
+        : movie.posterPath != null
+            ? Image.network(
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              )
+            : Image.asset(
+                logo,
+                fit: BoxFit.fill,
+                height: 100,
+                width: 60,
+              );
     return OpenContainers(
         closedWidget: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -42,18 +57,15 @@ class _WatchListItemState extends State<WatchListItem> {
                         width: 100.w,
                         height: 90.h,
                         child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          child: Image.network(
-                            widget.movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${widget.movie.posterPath}":logo,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                            child: image),
                       ),
                       Positioned(
                           left: 0,
                           top: 0,
                           child: InkWell(
-                            onTap: widget.onTapp,
+                            onTap: onTapp,
                             child: SizedBox(
                                 width: 27.w,
                                 height: 36.h,
@@ -71,10 +83,14 @@ class _WatchListItemState extends State<WatchListItem> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.movie.title??"",overflow: TextOverflow.ellipsis,style: mediumText,),
+                            Text(
+                              movie.title ?? "",
+                              overflow: TextOverflow.ellipsis,
+                              style: mediumText,
+                            ),
                             const VerticalSpace(5),
                             Text(
-                              widget.movie.releaseDate?.substring(0, 4) ?? '',
+                              movie.releaseDate?.substring(0, 4) ?? '',
                               style: smallText2,
                             ),
                             const VerticalSpace(5)
@@ -96,6 +112,6 @@ class _WatchListItemState extends State<WatchListItem> {
             ],
           ),
         ),
-        openedWidget: MovieDetailsScreen(movie: widget.movie));
+        openedWidget: MovieDetailsScreen(movie: movie));
   }
 }
