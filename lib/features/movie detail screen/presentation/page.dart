@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/core/api/api_functions/api_manager_functions.dart';
 import 'package:movies_app/core/utils/components/space.dart';
+import 'package:movies_app/features/movie%20detail%20screen/data/movie_deatils_remote.dart';
+import 'package:movies_app/features/movie%20detail%20screen/presentation/movie_details/movie_details_cubit.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/widgets/category_item.dart';
 import 'package:movies_app/features/movie%20detail%20screen/presentation/widgets/similar_listview.dart';
 import '../../../core/api/models/movie_item.dart';
@@ -22,6 +24,20 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget image = movie.backdropPath != null
+        ? Image.network(
+            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
+            fit: BoxFit.fill,
+          )
+        : movie.posterPath != null
+            ? Image.network(
+                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                logo,
+                fit: BoxFit.fill,
+              );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,18 +70,7 @@ class MovieDetailsScreen extends StatelessWidget {
         children: [
           Stack(
             children: [
-              SizedBox(
-                height: 217.h,
-                width: double.infinity,
-                child: Image.network(
-                  movie.backdropPath != null
-                      ? "https://image.tmdb.org/t/p/w500/${movie.backdropPath}"
-                      : (movie.posterPath != null
-                          ? "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
-                          : logo),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              SizedBox(height: 217.h, width: double.infinity, child: image),
               Positioned(
                 left: 0,
                 top: 0,
@@ -96,25 +101,6 @@ class MovieDetailsScreen extends StatelessWidget {
                 )
               ],
             ),
-            // child: Row(
-            //   children: [
-            //
-            //     // RichText(
-            //     //   text: TextSpan(
-            //     //     children: [
-            //     //       // TextSpan(
-            //     //       //   text: '${movie.title}\n',
-            //     //       //   style: tmpText,
-            //     //       // ),
-            //     //       TextSpan(
-            //     //         text: "\n${movie.releaseDate?.substring(0, 4)}",
-            //     //         style: smallText,
-            //     //       ),
-            //     //     ],
-            //     //   ),
-            //     // ),
-            //   ],
-            // ),
           ),
           const VerticalSpace(10),
           Row(
@@ -205,19 +191,25 @@ class MovieDetailsScreen extends StatelessWidget {
             ],
           ),
           const VerticalSpace(15),
-          FutureBuilder(
-            future: ApiManager.getSimilarMovies(id: movie.id ?? 0),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                return const Center(child: Text("Something went wrong!"));
-              }
-              List<Results> resultsList =
-                  snapshot.data?.results!.toList() ?? [];
-              return Expanded(child: SimilarListView(resultsList));
-            },
+          BlocProvider(
+            create: (context) => MovieDetailsCubit(MovieDetailsRemote())
+              ..getSimilarMovies(id: movie.id ?? 802),
+            child: BlocConsumer<MovieDetailsCubit, MovieDetailsState>(
+              listener: (context, state) {
+                if (state is MovieDetailsILoading) {
+                  debugPrint('loading...');
+                } else if (state is MovieDetailsError) {
+                  debugPrint('error...');
+                } else if (state is MovieDetailsSucces) {
+                  debugPrint('working...');
+                }
+              },
+              builder: (context, state) {
+                return Expanded(
+                    child: SimilarListView(
+                        MovieDetailsCubit.get(context).resultsList));
+              },
+            ),
           ),
           const VerticalSpace(28.6),
         ],

@@ -22,4 +22,14 @@ class MovieItemCubit extends Cubit<MovieItemState> {
     await repo.addToWatchlist(movie);
     emit(MovieItemChange());
   }
+
+  Future<void> deleteMovie(Results movie) async {
+    repo.deleteFromWatchlist(movie);
+
+    emit(MovieItemDelete());
+    repo.deleteFromWatchlist(movie);
+
+    emit(MovieItemDelete());
+    emit(MovieItemChange());
+  }
 }

@@ -23,7 +23,7 @@ class _SimilarListViewState extends State<SimilarListView> {
       height: 184.h,
       color: listViewColor,
       child: Padding(
-        padding: EdgeInsets.only(top: 10.h, left: 13.w),
+        padding: EdgeInsets.only(top: 6.h, left: 13.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

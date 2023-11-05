@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/styles.dart';
+import 'package:movies_app/features/browse%20tab/data/browse_tab_remote.dart';
 import 'package:movies_app/features/browse%20tab/presentation/widgets/category_list_view.dart';
 import '../browse cubit/browse_cubit.dart';
 import '../browse cubit/browse_state.dart';
@@ -19,10 +21,11 @@ class CatgeorytIdListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BrowseCubit()..getCategories(catID: id.toString()),
+      create: (context) =>
+          BrowseCubit(BrowseRemote())..getCategories(catID: id.toString()),
       child: BlocConsumer<BrowseCubit, BrowseStates>(
         listener: (context, state) {
-          if (state is BrowseGetCategoriesLoadingState) {
+          if (state is BrowseLoadingState) {
             showDialog(
               barrierDismissible: false,
               context: context,
@@ -32,8 +35,8 @@ class CatgeorytIdListview extends StatelessWidget {
                 title: Center(child: CircularProgressIndicator()),
               ),
             );
-          }
-          if (state is BrowseGetCategoriesErrorState) {
+            debugPrint('loading...');
+          } else if (state is BrowseErrorState) {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -44,9 +47,13 @@ class CatgeorytIdListview extends StatelessWidget {
                 )),
               ),
             );
+            debugPrint('error...');
+          } else if (state is BrowseSuccessState) {
+            debugPrint('working...');
           }
         },
         builder: (context, state) {
+          final bloc = BrowseCubit.get(context);
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -57,12 +64,11 @@ class CatgeorytIdListview extends StatelessWidget {
               body: ListView.builder(
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 12),
-                      child: CategoryListItem(
-                          movie: BrowseCubit.get(context).resultsList[index]),
+                      padding: EdgeInsets.only(left: 10.w, top: 12.h),
+                      child: CategoryListItem(movie: bloc.resultsList[index]),
                     );
                   },
-                  itemCount: BrowseCubit.get(context).resultsList.length));
+                  itemCount: bloc.resultsList.length));
         },
       ),
     );

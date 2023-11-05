@@ -12,3 +12,5 @@ class MovieItemChecked extends MovieItemState {}
 class MovieItemChange extends MovieItemState {}
 
 class MovieItemAdd extends MovieItemState {}
+
+class MovieItemDelete extends MovieItemState {}

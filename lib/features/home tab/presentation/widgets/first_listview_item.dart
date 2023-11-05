@@ -22,8 +22,9 @@ class NewReleasesListViewItem extends StatelessWidget {
             closedWidget: SizedBox(
               width: 96.87.w,
               height: 127.74.h,
-              child: Image.network(
-                  movie.posterPath!=null?"https://image.tmdb.org/t/p/w500/${movie.posterPath}":logo),
+              child: Image.network(movie.posterPath != null
+                  ? "https://image.tmdb.org/t/p/w500/${movie.posterPath}"
+                  : logo),
             ),
             openedWidget: MovieDetailsScreen(movie: movie)),
         Positioned(
@@ -50,7 +51,11 @@ class NewReleasesListViewItem extends StatelessWidget {
 
                 return InkWell(
                   onTap: () {
-                    bloc.addToWatchlist(movie);
+                    if (!(bloc.isbooked)) {
+                      bloc.addToWatchlist(movie);
+                    } else {
+                      bloc.deleteMovie(movie);
+                    }
                   },
                   child: SizedBox(
                       width: 27.w,

@@ -65,4 +65,44 @@ class MovieItemRemote extends MovieItemRepo {
       debugPrint('Error: $e');
     }
   }
+
+  @override
+  Future<void> deleteFromWatchlist(Results movie) async {
+    final Map<String, dynamic> requestBody = {
+      "media_type": "movie",
+      "media_id": movie.id,
+      "watchlist": false,
+    };
+
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      "Authorization":
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MGU1MzRkNTcwYzhlYmUzMzNmZTNlNzY2N2JhZjY0MSIsInN1YiI6IjY1M2U0YWVkY2M5NjgzMDE0ZWI5YTFlZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ytPBtidiQIlX6E9Qk1zXaLhf0aRP2ZAwNO3raa7DAvs',
+      "accept": "application/json",
+      "api_key": apiKeyAhmed,
+    };
+
+    final Uri uri = Uri.parse(
+        'https://api.themoviedb.org/3/account/20637785/watchlist?session_id=f00791981152a1ed9e8ad4b51f3e344ea0b9cc31');
+
+    try {
+      final response = await http.post(
+        uri,
+        headers: headers,
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 201) {
+        // Successfully added to watchlist
+        debugPrint('Movie deleted watchlist.');
+      } else {
+        // Handle errors here
+        debugPrint(
+            'Failed to delete movie from watchlist. Status code: ${response.statusCode}');
+        debugPrint('Response body: ${response.body}');
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+    }
+  }
 }

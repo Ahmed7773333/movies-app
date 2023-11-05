@@ -13,7 +13,6 @@ class CarouselSliderItem extends StatelessWidget {
   final List<Results> movie;
 
   const CarouselSliderItem({required this.movie, super.key});
-
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -27,6 +26,21 @@ class CarouselSliderItem extends StatelessWidget {
       items: movie.map((i) {
         return Builder(
           builder: (BuildContext context) {
+            final Widget image = i.backdropPath != null
+                ? Image.network(
+                    "https://image.tmdb.org/t/p/w500/${i.backdropPath}",
+                    fit: BoxFit.fill,
+                  )
+                : i.posterPath != null
+                    ? Image.network(
+                        "https://image.tmdb.org/t/p/w500/${i.posterPath}",
+                        fit: BoxFit.fill,
+                      )
+                    : Image.asset(
+                        logo,
+                        fit: BoxFit.fill,
+                      );
+
             return OpenContainers(
                 closedWidget: Stack(
                   children: [
@@ -35,12 +49,7 @@ class CarouselSliderItem extends StatelessWidget {
                         SizedBox(
                           height: 217.h,
                           width: double.infinity,
-                          child: Image.network(
-                            i.backdropPath != null
-                                ? "https://image.tmdb.org/t/p/w500/${i.backdropPath}"
-                                : (i.posterPath!=null?"https://image.tmdb.org/t/p/w500/${i.posterPath}":logo),
-                            fit: BoxFit.fill,
-                          ),
+                          child: image,
                         ),
                         Positioned(
                             left: 0,
@@ -60,8 +69,9 @@ class CarouselSliderItem extends StatelessWidget {
                       child: MovieItem(
                         height: 199,
                         width: 129,
-                        image:
-                        i.posterPath!=null?"https://image.tmdb.org/t/p/w500/${i.posterPath}":logo,
+                        image: i.posterPath != null
+                            ? "https://image.tmdb.org/t/p/w500/${i.posterPath}"
+                            : logo,
                         movie: i,
                       ),
                     ),
@@ -99,50 +109,3 @@ class CarouselSliderItem extends StatelessWidget {
     );
   }
 }
-
-//Stack(
-//                   children: [
-//                     SizedBox(
-//                       height: 217.h,
-//                       width: double.infinity,
-//                       child: Image.network("https://image.tmdb.org/t/p/w500/${i.posterPath}",fit: BoxFit.fill,
-//                       ),
-//                     ),
-//                     Positioned(
-//                         left: 0,
-//                         top: 0,
-//                         right: 0,
-//                         bottom: 0,
-//                         child: ImageIcon(
-//                           AssetImage(play),
-//                           size: 60.sp,
-//                           color: Colors.white,
-//                         )),
-//                     Column(
-//                       children: [
-//                         const VerticalSpace(14),
-//                         Padding(
-//                           padding: EdgeInsets.only(left: 164.w),
-//                           child: RichText(
-//                             text: TextSpan(
-//                               children: [
-//                                 TextSpan(
-//                                     text: i.title,
-//                                     style: tmpText),
-//                                 TextSpan(
-//                                   text: '${i.releaseDate?.substring(0,4)}PG-13 2h 7m',
-//                                   style: smallText,
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     Positioned(
-//                       left: 21.w,
-//                       top: 90.h,
-//                       child: MovieItem(height: 199, width: 129,image: "https://image.tmdb.org/t/p/w500/${i.posterPath}"),
-//                     ),
-//                   ],
-//                 ),
