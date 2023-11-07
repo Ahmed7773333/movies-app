@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:movies_app/core/api/models/MovieDetailsItem.dart';
 import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/features/home%20tab/domain/home_tab_repo.dart';
 
@@ -36,6 +37,19 @@ class HomeRemote extends HomeRepo {
             : url3);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
+    return data;
+  }
+
+  @override
+  Future<MovieDetailsItem> getMovieRuntime({required int id}) async {
+    Uri url = Uri.https(baseUrl, "/3/movie/$id", {
+      "Authorization": authorizationAccessToken,
+      "accept": "application/json",
+      "api_key": apiKeyAhmed,
+    });
+    http.Response response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
+    MovieDetailsItem data = MovieDetailsItem.fromJson(jsonData);
     return data;
   }
 }

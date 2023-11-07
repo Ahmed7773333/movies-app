@@ -95,9 +95,37 @@ class MovieDetailsScreen extends StatelessWidget {
                 Text(movie.title ?? "",
                     overflow: TextOverflow.ellipsis, style: largeText2),
                 const VerticalSpace(8),
-                Text(
-                  movie.releaseDate?.substring(0, 4) ?? "",
-                  style: verySmallText.copyWith(fontSize: 10),
+                Row(
+                  children: [
+                    Text(
+                      movie.releaseDate?.substring(0, 4) ?? "",
+                      style: verySmallText.copyWith(fontSize: 10),
+                    ),
+                    const HorizontalSpace(10),
+                    BlocProvider(
+                      create: (context) =>
+                          MovieDetailsCubit(MovieDetailsRemote())
+                            ..getMoviesDetails(id: movie.id ?? 802),
+                      child: BlocConsumer<MovieDetailsCubit, MovieDetailsState>(
+                        listener: (context, state) {
+                          if (state is MovieDetailsILoading) {
+                            debugPrint('loading...');
+                          } else if (state is MovieDetailsError) {
+                            debugPrint('error...');
+                          } else if (state is MovieDetailsSucces) {
+                            debugPrint('working...');
+                          }
+                        },
+                        builder: (context, state) {
+                          double hours= MovieDetailsCubit.get(context).runTime/60;
+                          return Text(
+                            "${hours.toStringAsFixed(0)}h ${MovieDetailsCubit.get(context).runTime%60}m",
+                            style: verySmallText.copyWith(fontSize: 10),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/api/models/movie_item.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
@@ -8,6 +9,8 @@ import 'package:movies_app/features/movie%20detail%20screen/presentation/page.da
 import '../../../../core/utils/assets.dart';
 import '../../../../core/utils/components/movie_item.dart';
 import '../../../../core/utils/styles.dart';
+import '../../data/home_remote.dart';
+import '../home_tab/home_tab_cubit.dart';
 
 class CarouselSliderItem extends StatelessWidget {
   final List<Results> movie;
@@ -80,17 +83,42 @@ class CarouselSliderItem extends StatelessWidget {
                             padding: EdgeInsets.only(
                               left: 164.w,
                             ),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(text: i.title, style: tmpText),
-                                  TextSpan(
-                                    text:
-                                        '\n\n${i.releaseDate?.substring(0, 4)}  PG-13  2h 7m',
-                                    style:
-                                        smallText3.copyWith(color: greyColor),
-                                  ),
-                                ],
+                            child: BlocProvider(
+                              create: (context) =>
+                              HomeTabCubit(HomeRemote())
+                                ..getMovieRuntime(id: i.id!),
+                              child: BlocConsumer<HomeTabCubit, HomeTabState>(
+                                listener: (context, state) {
+                                  if (state is HomeLoadingState) {
+                                    debugPrint('loading...');
+                                  } else if (state is HomeErrorState) {
+                                    debugPrint('error...');
+                                  } else if (state is HomeSuccessState) {
+                                    debugPrint('working...');
+                                  }
+                                },
+                                builder: (context, state) {
+                                  double hours= HomeTabCubit.get(context).runTime/60;
+                                  return RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(text: i.title, style: tmpText),
+                                        TextSpan(
+                                          text:
+                                          '\n\n${i.releaseDate?.substring(0, 4)}',
+                                          style:
+                                          smallText3.copyWith(color: greyColor),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                          "  ${hours.toStringAsFixed(0)}h ${HomeTabCubit.get(context).runTime%60}m",
+                                          style:
+                                          smallText3.copyWith(color: greyColor),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),
