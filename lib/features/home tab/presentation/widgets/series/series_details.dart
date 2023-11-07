@@ -233,7 +233,7 @@ class SeriesDetails extends StatelessWidget {
     {"id": 9648, "name": "Mystery"},
     {"id": 10763, "name": "News"},
     {"id": 10764, "name": "Reality"},
-    {"id": 10765, "name": "Sci-Fi"},
+    {"id": 10765, "name": "Fantasy"},
     {"id": 10766, "name": "Soap"},
     {"id": 10767, "name": "Talk"},
     {"id": 10768, "name": "War"},

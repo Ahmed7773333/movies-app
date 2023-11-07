@@ -7,7 +7,7 @@ import 'package:movies_app/core/utils/components/movie_item_cubit.dart/movie_ite
 import 'package:movies_app/core/utils/components/movie_item_cubit.dart/movie_item_remote.dart';
 import 'package:movies_app/core/utils/components/open_container.dart';
 import 'package:movies_app/core/utils/styles.dart';
-import 'package:movies_app/features/home%20tab/presentation/widgets/series/series_movie_details.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/series/series_details.dart';
 import '../../../../../core/api/models/series_model.dart';
 import '../../../../../core/utils/components/space.dart';
 

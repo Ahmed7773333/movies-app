@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/api/models/series_model.dart';
 import 'package:movies_app/core/utils/assets.dart';
 import 'package:movies_app/core/utils/components/open_container.dart';
-import 'package:movies_app/features/home%20tab/presentation/widgets/series/series_movie_details.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/series/series_details.dart';
 import '../../../../../core/utils/components/movie_item_cubit.dart/movie_item_cubit.dart';
 import '../../../../../core/utils/components/movie_item_cubit.dart/movie_item_remote.dart';
 
