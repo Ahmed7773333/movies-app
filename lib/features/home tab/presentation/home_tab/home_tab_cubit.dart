@@ -1,9 +1,9 @@
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/api/models/series_model.dart';
 import 'package:movies_app/features/home%20tab/domain/home_tab_repo.dart';
-
-import '../../../../core/api/models/MovieDetailsItem.dart';
+import '../../../../core/api/models/movie_details_item.dart';
 import '../../../../core/api/models/movie_item.dart';
 part 'home_tab_state.dart';
 
@@ -15,6 +15,8 @@ class HomeTabCubit extends Cubit<HomeTabState> {
   List<Results> carouselList = [];
   List<Results> newReleaseList = [];
   List<Results> recomendedList = [];
+  List<SeriesResults> popularSeriesList = [];
+  List<SeriesResults> recommendedSeriesList = [];
   int runTime=0;
 
   Future<void> getAllLists() async {
@@ -23,10 +25,14 @@ class HomeTabCubit extends Cubit<HomeTabState> {
       emit(HomeLoadingState());
       PopularMoviesItems data2 = await repo.getMovies(index: 2);
       PopularMoviesItems data1 = await repo.getMovies(index: 1);
+      SeriesModel data4 = await repo.getSeries(index: 1);
+      SeriesModel data5 = await repo.getSeries(index: 2);
 
       carouselList = data1.results ?? [];
       newReleaseList = data2.results ?? [];
       recomendedList = data3.results ?? [];
+      popularSeriesList = data4.results ?? [];
+      recommendedSeriesList = data5.results ?? [];
       emit(HomeSuccessState());
     } catch (e) {
       emit(HomeErrorState());

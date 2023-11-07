@@ -6,6 +6,8 @@ import 'package:movies_app/features/home%20tab/data/home_remote.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/carousel_slider_item.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/new_releases_listview.dart';
 import 'package:movies_app/features/home%20tab/presentation/widgets/recomended_listview.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/series/popular_series_list.dart';
+import 'package:movies_app/features/home%20tab/presentation/widgets/series/series_recommenced_list.dart';
 
 import 'home_tab/home_tab_cubit.dart';
 
@@ -53,25 +55,46 @@ class _HomeTabState extends State<HomeTab> {
               body: SafeArea(
             child: Stack(
               children: [
-                Column(
-                  children: [
-                    CarouselSliderItem(
-                      movie: HomeTabCubit.get(context).carouselList,
-                    ),
-                    const VerticalSpace(43),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 8.h),
-                      child: NewReleasesListView(
-                        resultsList: HomeTabCubit.get(context).newReleaseList,
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      CarouselSliderItem(
+                        movie: HomeTabCubit.get(context).carouselList,
                       ),
-                    ),
-                    const VerticalSpace(10),
-                    Expanded(
+                      const VerticalSpace(43),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: NewReleasesListView(
+                          resultsList: HomeTabCubit.get(context).newReleaseList,
+                        ),
+                      ),
+                      const VerticalSpace(10),
+                      SizedBox(
+                        height: 250.h,
+                        width: double.infinity,
                         child: RecommendedListItems(
-                      HomeTabCubit.get(context).recomendedList,
-                    )),
-                    const VerticalSpace(10),
-                  ],
+                          HomeTabCubit.get(context).recomendedList,
+                        ),
+                      ),
+                      const VerticalSpace(10),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: PopularSeriesList(
+                          resultsList: HomeTabCubit.get(context).popularSeriesList,
+                        ),
+                      ),
+                      const VerticalSpace(10),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 250.h,
+                        child: SeriesRecommendedList(
+                          HomeTabCubit.get(context).recommendedSeriesList,
+                        ),
+                      ),
+                      const VerticalSpace(10),
+                    ],
+                  ),
                 ),
               ],
             ),
