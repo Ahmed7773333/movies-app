@@ -111,7 +111,6 @@ class MovieDetailsScreen extends StatelessWidget {
                 child: MovieItem(
                   height: 199,
                   width: 129,
-                  image: movie.posterPath ?? logo,
                   movie: movie,
                 ),
               ),

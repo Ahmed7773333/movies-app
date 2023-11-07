@@ -23,25 +23,14 @@ class WatchListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget image = movie.backdropPath != null
-        ? Image.network(
-            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
-            fit: BoxFit.fill,
-            height: 100,
-            width: 60,
-          )
-        : movie.posterPath != null
+    final Widget image = movie.posterPath != null
             ? Image.network(
                 "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                 fit: BoxFit.fill,
-                height: 100,
-                width: 60,
               )
             : Image.asset(
                 logo,
                 fit: BoxFit.fill,
-                height: 100,
-                width: 60,
               );
     return OpenContainers(
         closedWidget: Padding(
@@ -54,8 +43,8 @@ class WatchListItem extends StatelessWidget {
                   Stack(
                     children: [
                       SizedBox(
-                        width: 100.w,
-                        height: 90.h,
+                        width: 110.w,
+                        height: 110.h,
                         child: ClipRRect(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),

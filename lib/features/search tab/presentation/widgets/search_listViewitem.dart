@@ -18,25 +18,18 @@ class SearchListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget image = movie.backdropPath != null
-        ? Image.network(
-            "https://image.tmdb.org/t/p/w500/${movie.backdropPath}",
-            fit: BoxFit.fill,
-            height: 100,
-            width: 60,
-          )
-        : movie.posterPath != null
+    final Widget image = movie.posterPath != null
             ? Image.network(
                 "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                 fit: BoxFit.fill,
                 height: 100,
-                width: 60,
+                width: 80,
               )
             : Image.asset(
                 logo,
                 fit: BoxFit.fill,
                 height: 100,
-                width: 60,
+                width: 80,
               );
     return OpenContainers(
         closedWidget: Padding(
@@ -51,7 +44,7 @@ class SearchListItem extends StatelessWidget {
                       child: image),
                   const HorizontalSpace(5),
                   SizedBox(
-                    width: 300.w,
+                    width: 290.w,
                     height: 100.h,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

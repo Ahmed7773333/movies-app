@@ -69,9 +69,6 @@ class CarouselSliderItem extends StatelessWidget {
                       child: MovieItem(
                         height: 199,
                         width: 129,
-                        image: i.posterPath != null
-                            ? "https://image.tmdb.org/t/p/w500/${i.posterPath}"
-                            : logo,
                         movie: i,
                       ),
                     ),
