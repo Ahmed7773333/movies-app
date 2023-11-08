@@ -77,7 +77,7 @@ class _HomeTabState extends State<HomeTab> {
                           HomeTabCubit.get(context).recomendedList,
                         ),
                       ),
-                      const VerticalSpace(15),
+                      const VerticalSpace(17),
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.h),
                         child: PopularSeriesList(
