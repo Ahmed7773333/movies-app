@@ -117,9 +117,10 @@ class MovieDetailsScreen extends StatelessWidget {
                           }
                         },
                         builder: (context, state) {
-                          double hours= MovieDetailsCubit.get(context).runTime/60;
+                          // int hours = int.parse((MovieDetailsCubit.get(context).runTime/60).toStringAsFixed(0));
+                          int hours = MovieDetailsCubit.get(context).runTime ~/ 60;
                           return Text(
-                            "${hours.toStringAsFixed(0)}h ${MovieDetailsCubit.get(context).runTime%60}m",
+                            "${hours}h ${MovieDetailsCubit.get(context).runTime%60}m",
                             style: verySmallText.copyWith(fontSize: 10),
                           );
                         },

@@ -98,7 +98,7 @@ class CarouselSliderItem extends StatelessWidget {
                                   }
                                 },
                                 builder: (context, state) {
-                                  double hours= HomeTabCubit.get(context).runTime/60;
+                                  int hours = HomeTabCubit.get(context).runTime ~/ 60;
                                   return RichText(
                                     text: TextSpan(
                                       children: [
@@ -111,7 +111,7 @@ class CarouselSliderItem extends StatelessWidget {
                                         ),
                                         TextSpan(
                                           text:
-                                          "  ${hours.toStringAsFixed(0)}h ${HomeTabCubit.get(context).runTime%60}m",
+                                          "  ${hours}h ${HomeTabCubit.get(context).runTime%60}m",
                                           style:
                                           smallText3.copyWith(color: greyColor),
                                         ),
