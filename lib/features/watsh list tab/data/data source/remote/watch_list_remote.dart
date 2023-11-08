@@ -11,18 +11,14 @@ class WatchListRemote extends WatchListRepo {
   Future<PopularMoviesItems> getWatchlistMovies() async {
     Uri url = Uri.https(baseUrl, "/3/account/20637785/watchlist/movies", {
       "Authorization": authorizationAccessToken,
-      "accept": "application/json",
       "api_key": apiKeyAhmed,
-      "language": "en-US",
-      "page": '1',
       "session_id": sessionId,
-      "sort_by": "created_at.asc",
     });
 
     http.Response response = await http.get(url);
     var jsonData = jsonDecode(response.body);
     PopularMoviesItems data = PopularMoviesItems.fromJson(jsonData);
-    debugPrint('${data.results?.length ?? 0}');
+    debugPrint('${data.results?.length ?? 'jjjjjjjj'}');
     return data;
   }
 

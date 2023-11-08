@@ -24,10 +24,22 @@ class _WatchListTabState extends State<WatchListTab> {
       child: BlocConsumer<WatchListCubit, WatchListState>(
         listener: (context, state) {
           if (state is WatchListLoadingState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.blue,
+                )),
+              ),
+            );
             debugPrint('loading...');
           } else if (state is WatchListErrorState) {
             debugPrint('error...');
           } else if (state is WatchListSuccessState) {
+            Navigator.pop(context);
             debugPrint('working...');
           } else if (state is DeletedState) {
             WatchListCubit.get(context).getWatchlistMovies();

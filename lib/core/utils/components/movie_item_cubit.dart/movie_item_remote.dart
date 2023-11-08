@@ -12,12 +12,8 @@ class MovieItemRemote extends MovieItemRepo {
   Future<bool> isBooked(int id) async {
     Uri url = Uri.https(baseUrl, "/3/account/20637785/watchlist/movies", {
       "Authorization": authorizationAccessToken,
-      "accept": "application/json",
       "api_key": apiKeyAhmed,
-      "language": "en-US",
-      "page": '1',
       "session_id": sessionId,
-      "sort_by": "created_at.asc",
     });
     http.Response response = await http.get(url);
     var jsonData = jsonDecode(response.body);

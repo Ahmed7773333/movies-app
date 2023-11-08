@@ -19,21 +19,21 @@ class SearchListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget image = movie.posterPath != null
-            ? Image.network(
-                "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
-                fit: BoxFit.fill,
-                height: 100,
-                width: 80,
-              )
-            : Image.asset(
-                logo,
-                fit: BoxFit.fill,
-                height: 100,
-                width: 80,
-              );
+        ? Image.network(
+            "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+            fit: BoxFit.fill,
+            height: 100,
+            width: 80,
+          )
+        : Image.asset(
+            logo,
+            fit: BoxFit.fill,
+            height: 100,
+            width: 80,
+          );
     return OpenContainers(
         closedWidget: Padding(
-          padding: const EdgeInsets.only(left: 8),
+          padding: EdgeInsets.only(left: 5.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
